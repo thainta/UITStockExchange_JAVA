@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 public class login extends JFrame{
     private JButton button1;
     private JPanel mainPanel;
+    private JTextField textField1;
+    private JTextField textField2;
 
     public login() {
 
@@ -16,7 +18,7 @@ public class login extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                button1.setText("ga");
+                JOptionPane.showMessageDialog(button1, "Hello");
             }
         });
     }
