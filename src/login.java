@@ -1,15 +1,15 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class login extends JFrame{
     private JButton button1;
     private JPanel mainPanel;
-    private JTextField textField1;
     private JPasswordField passwordField1;
+    private JTextField textField1;
 
     public login() {
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
