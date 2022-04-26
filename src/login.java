@@ -16,6 +16,7 @@ public class login extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
+        this.setVisible(true);
         button1.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -24,9 +25,5 @@ public class login extends JFrame{
                 JOptionPane.showMessageDialog(button1, "Hello");
             }
         });
-    }
-    public static void main(String[] args) {
-        JFrame log = new login();
-        log.setVisible(true);
     }
 }
