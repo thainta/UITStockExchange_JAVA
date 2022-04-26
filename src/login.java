@@ -8,8 +8,11 @@ public class login extends JFrame{
     private JPanel mainPanel;
     private JPasswordField passwordField1;
     private JTextField textField1;
+    private JButton btn2;
 
     public login() {
+        this.setMaximumSize(new Dimension(320, 192));
+        this.setPreferredSize(new Dimension(320, 192));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
@@ -22,7 +25,6 @@ public class login extends JFrame{
             }
         });
     }
-
     public static void main(String[] args) {
         JFrame log = new login();
         log.setVisible(true);
