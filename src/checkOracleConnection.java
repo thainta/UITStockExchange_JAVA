@@ -20,7 +20,7 @@ public class checkOracleConnection {
                 System.out.println(username + ", " + password);
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.out.println();
         }
     }
 }
