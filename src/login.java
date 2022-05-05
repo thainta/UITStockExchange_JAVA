@@ -1,28 +1,24 @@
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
 
-public class login extends JFrame{
-    private JButton button1;
-    private JPanel mainPanel;
-
-    public login() {
-
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(mainPanel);
-        this.pack();
-        button1.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                button1.setText("ga");
-            }
-        });
+public class login extends JDialog{
+    private JTextField textField1;
+    private JPasswordField passwordField1;
+    private JButton loginButton;
+    private JButton registerButton;
+    private JPanel loginPanel;
+    public login(JFrame parent) {
+        super(parent);
+        setTitle("Login...");
+        setContentPane(loginPanel);
+        setMinimumSize(new Dimension(480, 400));
+        setModal(true);
+        setLocationRelativeTo(parent);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
     }
 
     public static void main(String[] args) {
-        JFrame log = new login();
-        log.setVisible(true);
+        login myForm = new login(null);
     }
 }
