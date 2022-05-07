@@ -22,10 +22,14 @@ public class userProfile extends JDialog{
         setTitle("User Profile");
         setContentPane(userProfilePanel);
 <<<<<<< HEAD
+<<<<<<< HEAD
         setMinimumSize(new Dimension(600, 650));
 =======
         setMinimumSize(new Dimension(600, 600));
 >>>>>>> c1263f4 (User Profile UI)
+=======
+        setMinimumSize(new Dimension(600, 650));
+>>>>>>> dd79294 (fix UI)
         setModal(true);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

@@ -4,10 +4,14 @@
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <xy x="20" y="20" width="612" height="578"/>
 =======
       <xy x="20" y="20" width="612" height="538"/>
 >>>>>>> c1263f4 (User Profile UI)
+=======
+      <xy x="20" y="20" width="612" height="578"/>
+>>>>>>> dd79294 (fix UI)
     </constraints>
     <properties>
       <background color="-8881274"/>
@@ -167,10 +171,14 @@
         </constraints>
       </vspacer>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <grid id="c3bb7" layout-manager="GridLayoutManager" row-count="11" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
 =======
       <grid id="c3bb7" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
 >>>>>>> c1263f4 (User Profile UI)
+=======
+      <grid id="c3bb7" layout-manager="GridLayoutManager" row-count="11" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+>>>>>>> dd79294 (fix UI)
         <margin top="5" left="10" bottom="10" right="10"/>
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -333,10 +341,14 @@
             <properties>
               <font name="JetBrains Mono" size="18" style="1"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
               <text value="Your Password"/>
 =======
               <text value="Password"/>
 >>>>>>> c1263f4 (User Profile UI)
+=======
+              <text value="Your Password"/>
+>>>>>>> dd79294 (fix UI)
             </properties>
           </component>
           <component id="77041" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
@@ -352,10 +364,14 @@
           <component id="54938" class="javax.swing.JButton" binding="updateButton" default-binding="true">
             <constraints>
 <<<<<<< HEAD
+<<<<<<< HEAD
               <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
 =======
               <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
 >>>>>>> c1263f4 (User Profile UI)
+=======
+              <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+>>>>>>> dd79294 (fix UI)
             </constraints>
             <properties>
               <background color="-13835022"/>
@@ -383,6 +399,9 @@
             </properties>
           </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dd79294 (fix UI)
           <component id="72cb7" class="javax.swing.JLabel">
             <constraints>
               <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -402,8 +421,11 @@
               <font name="JetBrains Mono" size="18" style="1"/>
             </properties>
           </component>
+<<<<<<< HEAD
 =======
 >>>>>>> c1263f4 (User Profile UI)
+=======
+>>>>>>> dd79294 (fix UI)
         </children>
       </grid>
     </children>
