@@ -12,7 +12,7 @@ new FormModel {
 			"defaultCloseOperation": 3
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 				"$horizontalGroup": "par l {seq t {par l {comp panel6:::::x, comp panel7:::::x}, space :::p, comp panel5:::p::p}}"
-				"$verticalGroup": "par l {seq {par l {seq {space :::p, comp panel5:::::x}, seq {comp panel6:::p::p, space :::p, comp panel7:::::x}}, space :::p}}"
+				"$verticalGroup": "par l {seq {par l {seq {space :::p, comp panel5:::::x}, seq {comp panel6:::::x, space s:::p, comp panel7:::p::p}}, space :::p}}"
 			} ) {
 				name: "panel4"
 				"background": new java.awt.Color( 41, 55, 66, 255 )
@@ -55,19 +55,14 @@ new FormModel {
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:97:p, comp button5:::p::p, space ::291:x}}"
-					"$verticalGroup": "par l {seq l {space :p:66:p, comp button5:::p::p, space ::211:x}}"
+					"$horizontalGroup": "par l {space :0:466:x}"
+					"$verticalGroup": "par l {space :0:374:x}"
 				} ) {
 					name: "panel6"
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button5"
-						"text": "text"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button5", true ) )
-					} )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {space :0:466:x}"
-					"$verticalGroup": "par l {space :0:334:x}"
+					"$verticalGroup": "par l {space :0:255:x}"
 				} ) {
 					name: "panel7"
 				} )
