@@ -51,18 +51,29 @@ public class InfoBoard extends JFrame {
         //-----------------------------JPanel----------------------------------------------------
         panel5.setBackground(new Color(41, 55, 66));
         Jpanell k = new Jpanell();
-        k.setBackground(Color.ORANGE);
-
-        GroupLayout p7layout = new GroupLayout(panel7);
-        panel7.setLayout(p7layout);
-        p7layout.setHorizontalGroup(
-                p7layout.createParallelGroup()
-                        .addGap(0, 460, Short.MAX_VALUE).addComponent(k)
-        );
-        p7layout.setVerticalGroup(
-                p7layout.createParallelGroup()
-                        .addGap(0, 304, Short.MAX_VALUE).addComponent(k)
-        );
+        k.setBackground(Color.red);
+        Jpanell t = new Jpanell();
+        t.setBackground(Color.blue);
+        GroupLayout p7layout = (GroupLayout)panel7.getLayout();
+//        p7layout.setHorizontalGroup(
+//                p7layout.createParallelGroup()
+//                        .addGroup(p7layout.createSequentialGroup()
+//                            .addGroup(p7layout.createParallelGroup()
+//                                .addComponent(k, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//                                .addComponent(t, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+//                            .addContainerGap())
+//                );
+//        p7layout.setVerticalGroup(
+//                p7layout.createParallelGroup()
+//                        .addGroup(p7layout.createSequentialGroup()
+//                            .addContainerGap()
+//                            .addComponent(k, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+//                            .addComponent(t, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//                            .addContainerGap(79, Short.MAX_VALUE))
+//                );
+        panel7.revalidate();
+        panel7.repaint();
         ///////////////////////////////-------------------------------///////////////////////////////////
         setVisible(true);
         pack();
@@ -96,11 +107,13 @@ public class InfoBoard extends JFrame {
         //======== panel4 ========
         {
             panel4.setBackground(new Color(41, 55, 66));
-            panel4.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(
-            0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder
-            .BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt.Color.
-            red),panel4. getBorder()));panel4. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.
-            beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))throw new RuntimeException();}});
+            panel4.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
+            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax
+            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
+            .awt.Font("D\u0069alog",java.awt.Font.BOLD,12),java.awt
+            .Color.red),panel4. getBorder()));panel4. addPropertyChangeListener(new java.beans.
+            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062order".
+            equals(e.getPropertyName()))throw new RuntimeException();}});
 
             //======== panel5 ========
             {
@@ -176,7 +189,7 @@ public class InfoBoard extends JFrame {
                 );
                 panel6Layout.setVerticalGroup(
                     panel6Layout.createParallelGroup()
-                        .addGap(0, 277, Short.MAX_VALUE)
+                        .addGap(0, 374, Short.MAX_VALUE)
                 );
             }
 
@@ -191,7 +204,7 @@ public class InfoBoard extends JFrame {
                 );
                 panel7Layout.setVerticalGroup(
                     panel7Layout.createParallelGroup()
-                        .addGap(0, 364, Short.MAX_VALUE)
+                        .addGap(0, 255, Short.MAX_VALUE)
                 );
             }
 
@@ -214,9 +227,9 @@ public class InfoBoard extends JFrame {
                                 .addContainerGap()
                                 .addComponent(panel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panel4Layout.createSequentialGroup()
-                                .addComponent(panel6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(panel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(panel7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
             );
         }
@@ -321,7 +334,7 @@ class Jpanell extends JPanel {
                                 .addGroup(layout.createParallelGroup()
                                         .addComponent(label4, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(label3, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())
+                                .addContainerGap()).addGap(0, 466, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup()
@@ -338,6 +351,7 @@ class Jpanell extends JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(label5, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 81, Short.MAX_VALUE)
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
