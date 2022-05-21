@@ -17,7 +17,7 @@ new FormModel {
 				name: "panel4"
 				"background": new java.awt.Color( 41, 55, 66, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp button3:::p::p, space :::p, comp button4:::p::p, space :0:151:x}, seq l {space :::p, comp scrollPane2::::474:x, space :::p}}"
+					"$horizontalGroup": "par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp button3:::p::p, space :::p, comp button4:::p::p, space :0:151:x}, seq l {space :::p, comp scrollPane2::::475:x, space :::p}}"
 					"$verticalGroup": "par l {seq t {par b {comp button1::b:p::p, comp button2::b:p::p, comp button3::b:p::p, comp button4::b:p::p}, space :::p, comp scrollPane2::::605:x}}"
 				} ) {
 					name: "panel5"
@@ -34,6 +34,7 @@ new FormModel {
 						"text": "Tang gia"
 						"background": &Color0 new java.awt.Color( 57, 75, 89, 255 )
 						"foreground": &Color1 new java.awt.Color( 241, 244, 246, 255 )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button2"
@@ -55,13 +56,13 @@ new FormModel {
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:466:x}"
+					"$horizontalGroup": "par l {space :0:465:x}"
 					"$verticalGroup": "par l {space :0:374:x}"
 				} ) {
 					name: "panel6"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:466:x}"
+					"$horizontalGroup": "par l {space :0:465:x}"
 					"$verticalGroup": "par l {space :0:255:x}"
 				} ) {
 					name: "panel7"
@@ -73,3 +74,4 @@ new FormModel {
 		} )
 	}
 }
+

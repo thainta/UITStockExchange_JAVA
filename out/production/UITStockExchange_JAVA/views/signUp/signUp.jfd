@@ -1,0 +1,123 @@
+JFDML JFormDesigner: "7.0.5.1.409" Java: "11.0.14.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {par l {seq {comp label1:::p::p, space :p:96:p, comp label2:::p::p}, seq l {space :p:19:p, par l:::p {seq l {comp label9:::p::p, space :::x, comp textField6:::p:378:p}, seq l {comp label7:::p::p, space :::x, comp textField5:::p:378:p}, seq l {comp label6:::p::p, space :::x, comp textField4:::p:378:p}, seq l {comp label5:::p::p, space :::x, comp textField3:::p:378:p}, seq t {comp label4:::p::p, space :::x, comp textField2:::p:378:p}, seq t {comp label3:::p::p, space s:::p, comp textField1:::p:378:p}, seq l {comp label8:::p::p, space :p:168:p, comp radioButton1:::p::p, space :p:37:p, comp radioButton2:::p::p}, seq t {par l {comp label10::l:p::p, comp label11::l:p::p, comp label12::l:p::p}, space :::x, par l {comp passwordField2:::p:378:p, par l:::p {comp passwordField1::::378:x, comp textField7::::378:x}}}}}, seq l {space :p:177:p, comp button1:::p:122:p, space u:::p, comp button2:::p:122:p}}, space ::16:x}}"
+			"$verticalGroup": "par l {seq {par l {seq l {comp label1:::p::p, space u:::p, par b {comp label3::b:p::p, comp textField1::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp textField2::b:p::p}}, seq l {space :p:30:p, comp label2:::p::p}}, space u:::p, par l {comp label5:::p::p, comp textField3:::p::p}, space u:::p, par l {comp label6:::p::p, comp textField4:::p::p}, space u:::p, par l {comp label7:::p::p, comp textField5:::p::p}, space u:::p, par b {comp label8::b:p::p, comp radioButton1::b:p::p, comp radioButton2::b:p::p}, space u:::p, par b {comp label9::b:p::p, comp textField6::b:p::p}, space u:::p, par b {comp label10::b:p::p, comp textField7::b:p::p}, space u:::p, par b {comp label11::b:p::p, comp passwordField1::b:p::p}, space u:::p, par b {comp label12::b:p::p, comp passwordField2::b:p::p}, space s:::p, par b {comp button1::b:p:39:p, comp button2::b:p:39:p}, space :0:19:x}}"
+		} ) {
+			name: "this"
+			"font": new java.awt.Font( "JetBrains Mono", 1, 24 )
+			"resizable": false
+			"$sizePolicy": 1
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/register.png" )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Register"
+				"font": new java.awt.Font( "Yu Gothic UI Semibold", 1, 48 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "First Name:"
+				"font": &Font0 new java.awt.Font( "JetBrains Mono", 1, 20 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Last Name:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "DOB:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "Address:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": "ID:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label8"
+				"text": "Sex:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label9"
+				"text": "Phone:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label10"
+				"text": "Email:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label11"
+				"text": "Password:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label12"
+				"text": "Confirm:"
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField1"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField2"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField3"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField4"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField5"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField6"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField7"
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "passwordField1"
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "passwordField2"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Register Now!"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "Login"
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "radioButton1"
+				"text": "Male"
+				"font": &Font1 new java.awt.Font( "Segoe UI", 0, 20 )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "radioButton2"
+				"text": "Female"
+				"font": #Font1
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 35, 0 )
+			"size": new java.awt.Dimension( 565, 665 )
+		} )
+	}
+}

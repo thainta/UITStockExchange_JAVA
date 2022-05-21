@@ -82,12 +82,13 @@ public class InfoBoard extends JFrame {
     private void button5(ActionEvent e) {
         // TODO add your code here
     }
+
     
 
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
         panel4 = new JPanel();
         panel5 = new JPanel();
         scrollPane2 = new JScrollPane();
@@ -107,13 +108,13 @@ public class InfoBoard extends JFrame {
         //======== panel4 ========
         {
             panel4.setBackground(new Color(41, 55, 66));
-            panel4.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
-            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax
-            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
-            .awt.Font("D\u0069alog",java.awt.Font.BOLD,12),java.awt
-            .Color.red),panel4. getBorder()));panel4. addPropertyChangeListener(new java.beans.
-            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062order".
-            equals(e.getPropertyName()))throw new RuntimeException();}});
+            panel4.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
+            . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax. swing
+            .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
+            Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
+            ) ,panel4. getBorder () ) ); panel4. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
+            public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062order" .equals ( e. getPropertyName (
+            ) ) )throw new RuntimeException( ) ;} } );
 
             //======== panel5 ========
             {
@@ -162,7 +163,7 @@ public class InfoBoard extends JFrame {
                             .addGap(0, 151, Short.MAX_VALUE))
                         .addGroup(panel5Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                             .addContainerGap())
                 );
                 panel5Layout.setVerticalGroup(
@@ -185,7 +186,7 @@ public class InfoBoard extends JFrame {
                 panel6.setLayout(panel6Layout);
                 panel6Layout.setHorizontalGroup(
                     panel6Layout.createParallelGroup()
-                        .addGap(0, 466, Short.MAX_VALUE)
+                        .addGap(0, 465, Short.MAX_VALUE)
                 );
                 panel6Layout.setVerticalGroup(
                     panel6Layout.createParallelGroup()
@@ -200,7 +201,7 @@ public class InfoBoard extends JFrame {
                 panel7.setLayout(panel7Layout);
                 panel7Layout.setHorizontalGroup(
                     panel7Layout.createParallelGroup()
-                        .addGap(0, 466, Short.MAX_VALUE)
+                        .addGap(0, 465, Short.MAX_VALUE)
                 );
                 panel7Layout.setVerticalGroup(
                     panel7Layout.createParallelGroup()
@@ -250,7 +251,7 @@ public class InfoBoard extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
     private JPanel panel4;
     private JPanel panel5;
     private JScrollPane scrollPane2;

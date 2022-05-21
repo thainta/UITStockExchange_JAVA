@@ -1,0 +1,192 @@
+JFDML JFormDesigner: "7.0.5.1.409" Java: "11.0.14.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {par l {seq {space :::p, comp panel4:::p::p, space s:::p, comp scrollPane1::::0:x}, comp panel1:::::x}, space :::p, comp panel5:::::x, space :::p, par l {comp panel2:::p::p, comp panel3:::::x}, space :::p}}"
+			"$verticalGroup": "par l {seq t {comp panel2:::::x, space :::p, comp panel3:::p::p, space :::p}, seq {comp panel1:::p::p, par l {comp panel5:::::x, seq l {space :::p, par l:::p {comp scrollPane1::::382:x, comp panel4::::382:x}, space :::x}}}}"
+		} ) {
+			name: "this"
+			"background": new com.jformdesigner.model.SwingColor( "BigSpinner.background" )
+			"resizable": false
+			"minimumSize": new java.awt.Dimension( 14, 29 )
+			"$sizePolicy": 1
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :p:18:p, comp label1:::p::p, space :::p, comp label2:::p::p, space :::x}}"
+				"$verticalGroup": "par l {seq l {space :::p, par b {comp label1::b:p::p, comp label2::b:p::p}, space :::x}}"
+			} ) {
+				name: "panel1"
+				"background": new com.jformdesigner.model.SwingColor( "ActionButton.pressedBackground" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "VCB"
+					"font": new java.awt.Font( "JetBrains Mono Medium", 1, 25 )
+					"foreground": sfield java.awt.Color red
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "Ngan hang thuong mai co phan ngoai thuong VN"
+					"font": new java.awt.Font( "JetBrains Mono Medium", 1, 24 )
+					"foreground": sfield java.awt.Color blue
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :p:12:p, comp label3:::p::p, space :::p, comp textField1:::p:257:p, space ::15:x}, seq t {space ::129:x, comp button1:::p::p, space :p:123:p}}"
+				"$verticalGroup": "par l {seq l {space :::p, par b {comp textField1::b:p::p, comp label3::b:p::p}, space :::x, comp button1:::p::p, space :::p}}"
+			} ) {
+				name: "panel2"
+				"background": new com.jformdesigner.model.SwingColor( "ActionButton.pressedBorderColor" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "Search"
+					"font": new java.awt.Font( "Tahoma", 0, 14 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "Search"
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {comp scrollPane2::t::0:x}"
+				"$verticalGroup": "par l {seq l {space :::p, comp scrollPane2:::p:344:p, space ::21:x}}"
+			} ) {
+				name: "panel3"
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane2"
+					add( new FormComponent( "javax.swing.JTable" ) {
+						name: "table2"
+					} )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq {space :p:21:p, par l {seq {comp label4:::p::p, space :::p, comp label5:::p::p}, comp label6::l:p::p, comp label7::l:p::p}, space ::116:x}, seq l {space :::p, comp panel6:::::x, space :::p}}"
+				"$verticalGroup": "par l {seq l {par b {comp label4::b:p::p, comp label5::b:p::p}, space :::p, comp label6:::p::p, space :::p, comp label7:::p::p, space u:::p, comp panel6:::p::p, space :::x}}"
+			} ) {
+				name: "panel4"
+				"background": new com.jformdesigner.model.SwingColor( "SplitPane.shadow" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "75.3"
+					"font": new java.awt.Font( "JetBrains Mono Medium", 1, 32 )
+					"foreground": sfield java.awt.Color red
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "-0.7 (-0.92%)"
+					"font": new java.awt.Font( "JetBrains Mono Medium", 1, 16 )
+					"foreground": sfield java.awt.Color red
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label6"
+					"text": "Update:"
+					"font": &Font0 new java.awt.Font( "Yu Gothic UI Semibold", 0, 14 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label7"
+					"text": "15:15 20/05/2022"
+					"font": #Font0
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq {space :::p, par l {seq l {par l {seq t {par l {comp label8::l:p::p, comp label9::l:p::p}, space :::x, par l {comp label15:::p::p, comp label14:::p:30:p}}, seq t {space :0:0:x, comp label16:::p::p, space :p:7:p}, seq t {par l {comp label11::l:p::p, comp label12::l:p::p, comp label10:::p::p}, space :::x, par l {comp label18:::p::p, comp label17:::p:32:p}}}, space :::p}, seq l {comp label13:::p::p, space :::x, comp label19:::p::p, space :p:24:p}}}, seq l {space :p:22:p, comp button2:::p:278:p, space :0:36:x}}"
+					"$verticalGroup": "par l {seq l {space :::p, par b {comp label8::b:p::p, comp label14::b:p::p}, space u:::p, par b {comp label9::b:p::p, comp label15::b:p::p}, space u:::p, par b {comp label10::b:p::p, comp label16::b:p::p}, space u:::p, par b {comp label11::b:p::p, comp label17::b:p:20:p}, space u:::p, par b {comp label12::b:p::p, comp label18::b:p::p}, space u:::p, par b {comp label13::b:p::p, comp label19::b:p::p}, space :p:27:p, comp button2:::p:40:p, space ::17:x}}"
+				} ) {
+					name: "panel6"
+					"background": new com.jformdesigner.model.SwingColor( "ColorPalette.lightBorder" )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label8"
+						"text": "Exchange quantity:"
+						"font": #Font0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label9"
+						"text": "Compare price:"
+						"font": #Font0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label10"
+						"text": "Top price:"
+						"font": #Font0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label11"
+						"text": "Bottom price:"
+						"font": #Font0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label12"
+						"text": "Highest price:"
+						"font": #Font0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label13"
+						"text": "Lowest price:"
+						"font": #Font0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label14"
+						"text": "76"
+						"font": &Font1 new java.awt.Font( "Yu Gothic UI Semibold", 1, 14 )
+						"foreground": new java.awt.Color( 255, 153, 0, 255 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label15"
+						"text": "81.3"
+						"font": #Font1
+						"foreground": new java.awt.Color( 255, 0, 255, 255 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label16"
+						"text": "70.7"
+						"font": #Font1
+						"foreground": new java.awt.Color( 0, 102, 153, 255 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label17"
+						"text": "75.1"
+						"font": #Font1
+						"foreground": new java.awt.Color( 204, 0, 0, 255 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label18"
+						"text": "76.5"
+						"font": #Font1
+						"foreground": new java.awt.Color( 0, 165, 0, 255 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label19"
+						"text": "75"
+						"font": #Font1
+						"foreground": new java.awt.Color( 204, 0, 0, 255 )
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button2"
+						"text": "Back"
+						"font": new java.awt.Font( "Yu Gothic UI", 1, 18 )
+					} )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {space :0:0:x}"
+				"$verticalGroup": "par l {space :0:0:x}"
+			} ) {
+				name: "panel5"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+					auxiliary() {
+						"JavaCodeGenerator.customCreate": true
+					}
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 5 )
+			"size": new java.awt.Dimension( 1080, 475 )
+		} )
+	}
+}
