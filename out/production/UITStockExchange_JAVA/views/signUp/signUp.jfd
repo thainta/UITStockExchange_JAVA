@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {comp label1:::p::p, space :p:96:p, comp label2:::p::p}, seq l {space :p:19:p, par l:::p {seq l {comp label9:::p::p, space :::x, comp textField6:::p:378:p}, seq l {comp label7:::p::p, space :::x, comp textField5:::p:378:p}, seq l {comp label6:::p::p, space :::x, comp textField4:::p:378:p}, seq l {comp label5:::p::p, space :::x, comp textField3:::p:378:p}, seq t {comp label4:::p::p, space :::x, comp textField2:::p:378:p}, seq t {comp label3:::p::p, space s:::p, comp textField1:::p:378:p}, seq l {comp label8:::p::p, space :p:168:p, comp radioButton1:::p::p, space :p:37:p, comp radioButton2:::p::p}, seq t {par l {comp label10::l:p::p, comp label11::l:p::p, comp label12::l:p::p}, space :::x, par l {comp passwordField2:::p:378:p, par l:::p {comp passwordField1::::378:x, comp textField7::::378:x}}}}}, seq l {space :p:177:p, comp button1:::p:122:p, space u:::p, comp button2:::p:122:p}}, space ::16:x}}"
-			"$verticalGroup": "par l {seq {par l {seq l {comp label1:::p::p, space u:::p, par b {comp label3::b:p::p, comp textField1::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp textField2::b:p::p}}, seq l {space :p:30:p, comp label2:::p::p}}, space u:::p, par l {comp label5:::p::p, comp textField3:::p::p}, space u:::p, par l {comp label6:::p::p, comp textField4:::p::p}, space u:::p, par l {comp label7:::p::p, comp textField5:::p::p}, space u:::p, par b {comp label8::b:p::p, comp radioButton1::b:p::p, comp radioButton2::b:p::p}, space u:::p, par b {comp label9::b:p::p, comp textField6::b:p::p}, space u:::p, par b {comp label10::b:p::p, comp textField7::b:p::p}, space u:::p, par b {comp label11::b:p::p, comp passwordField1::b:p::p}, space u:::p, par b {comp label12::b:p::p, comp passwordField2::b:p::p}, space s:::p, par b {comp button1::b:p:39:p, comp button2::b:p:39:p}, space :0:19:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {comp label1:::p::p, space :p:96:p, comp label2:::p::p}, seq l {space :p:19:p, par l:::p {seq l {comp label9:::p::p, space :::x, comp phoneInput:::p:378:p}, seq l {comp label7:::p::p, space :::x, comp idcInput:::p:378:p}, seq l {comp label6:::p::p, space :::x, comp addrInput:::p:378:p}, seq l {comp label5:::p::p, space :::x, comp dobInput:::p:378:p}, seq t {comp label4:::p::p, space :::x, comp lnInput:::p:378:p}, seq t {comp label3:::p::p, space s:::p, comp fnInput:::p:378:p}, seq l {comp label8:::p::p, space :p:168:p, comp maleInput:::p::p, space :p:37:p, comp femaleInput:::p::p}, seq t {par l {comp label10::l:p::p, comp label11::l:p::p, comp label12::l:p::p}, space :::x, par l {comp confirmPassInput:::p:378:p, par l:::p {comp passInput::::378:x, comp emailInput::::378:x}}}}}, seq l {space :p:177:p, comp registerBtn:::p:122:p, space u:::p, comp button2:::p:122:p}}, space ::16:x}}"
+			"$verticalGroup": "par l {seq {par l {seq l {comp label1:::p::p, space u:::p, par b {comp label3::b:p::p, comp fnInput::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp lnInput::b:p::p}}, seq l {space :p:30:p, comp label2:::p::p}}, space u:::p, par l {comp label5:::p::p, comp dobInput:::p::p}, space u:::p, par l {comp label6:::p::p, comp addrInput:::p::p}, space u:::p, par l {comp label7:::p::p, comp idcInput:::p::p}, space u:::p, par b {comp label8::b:p::p, comp maleInput::b:p::p, comp femaleInput::b:p::p}, space u:::p, par b {comp label9::b:p::p, comp phoneInput::b:p::p}, space u:::p, par b {comp label10::b:p::p, comp emailInput::b:p::p}, space u:::p, par b {comp label11::b:p::p, comp passInput::b:p::p}, space u:::p, par b {comp label12::b:p::p, comp confirmPassInput::b:p::p}, space s:::p, par b {comp registerBtn::b:p:39:p, comp button2::b:p:39:p}, space :0:19:x}}"
 		} ) {
 			name: "this"
 			"font": new java.awt.Font( "JetBrains Mono", 1, 24 )
@@ -71,49 +71,53 @@ new FormModel {
 				"font": #Font0
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField1"
+				name: "fnInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField2"
+				name: "lnInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField3"
+				name: "dobInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField4"
+				name: "addrInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField5"
+				name: "idcInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField6"
+				name: "phoneInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField7"
+				name: "emailInput"
 			} )
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
-				name: "passwordField1"
+				name: "passInput"
 			} )
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
-				name: "passwordField2"
+				name: "confirmPassInput"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "registerBtn"
 				"text": "Register Now!"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "registerBtnMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
 				"text": "Login"
 			} )
 			add( new FormComponent( "javax.swing.JRadioButton" ) {
-				name: "radioButton1"
+				name: "maleInput"
 				"text": "Male"
 				"font": &Font1 new java.awt.Font( "Segoe UI", 0, 20 )
+				"selected": true
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "maleInputMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JRadioButton" ) {
-				name: "radioButton2"
+				name: "femaleInput"
 				"text": "Female"
 				"font": #Font1
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "femaleInputMouseClicked", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 35, 0 )
@@ -121,3 +125,4 @@ new FormModel {
 		} )
 	}
 }
+

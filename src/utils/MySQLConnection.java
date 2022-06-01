@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class MySQLConnection {
     public static Connection getOracleConnection() throws SQLException, ClassNotFoundException{
-                String url = "jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_f94a9ebb367cd91";
-                String username="bc94aa977eb0e9";
-                String password = "174eb7ff";
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                String url = "jdbc:mysql://localhost:3306/sys";
+                String username="root";
+                String password = "ldh@2210";
+                Class.forName("com.mysql.jdbc.Driver");
                 return DriverManager.getConnection(url, username, password);
     }
 }
