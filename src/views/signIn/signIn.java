@@ -4,24 +4,61 @@
 
 package views.signIn;
 
+import java.awt.event.*;
+import utils.MySQLConnection;
 import views.companyInfo.companyInfo;
-
+import org.mindrot.jbcrypt.BCrypt;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+
 
 /**
  * @author Le Duy Hoang
  */
 public class signIn extends JFrame {
     public static void main(String[] args) {
-
-        new signIn().setVisible(true);
+        signIn form = new signIn();
+        form.setVisible(true);
     }
 
+    public static Connection getMyConnection()throws SQLException, ClassNotFoundException{
+        return MySQLConnection.getOracleConnection();
+    }
 
     public signIn() {
         initComponents();
+    }
+
+    private void loginBtnMouseClicked(MouseEvent e) {
+        try {
+            Connection conn = getMyConnection();
+            System.out.println("Success");
+            Statement st = conn.createStatement();
+            try {
+                ResultSet rs = st.executeQuery("select * from user");
+                while (rs.next()) {
+                    if (emailnput.getText().equals(rs.getString("email"))) {
+                        if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("password")) == true) {
+                            JOptionPane.showMessageDialog(this, "Login success");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Wrong password");
+                        }
+                    }
+                }
+
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void initComponents() {
@@ -32,10 +69,10 @@ public class signIn extends JFrame {
         label3 = new JLabel();
         label4 = new JLabel();
         label5 = new JLabel();
-        passwordField1 = new JPasswordField();
-        textField1 = new JTextField();
+        passwordInput = new JPasswordField();
+        emailnput = new JTextField();
         button3 = new JButton();
-        button4 = new JButton();
+        loginBtn = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -51,7 +88,7 @@ public class signIn extends JFrame {
         label3.setFont(new Font("Tahoma", Font.BOLD, 32));
 
         //---- label4 ----
-        label4.setText("Username:");
+        label4.setText("Email:");
         label4.setFont(new Font("Tahoma", Font.PLAIN, 24));
 
         //---- label5 ----
@@ -61,8 +98,14 @@ public class signIn extends JFrame {
         //---- button3 ----
         button3.setText("Register");
 
-        //---- button4 ----
-        button4.setText("Login");
+        //---- loginBtn ----
+        loginBtn.setText("Login");
+        loginBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                loginBtnMouseClicked(e);
+            }
+        });
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -85,13 +128,13 @@ public class signIn extends JFrame {
                                         .addComponent(label4))
                                     .addGap(30, 30, 30)
                                     .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(textField1)
-                                        .addComponent(passwordField1))))))
+                                        .addComponent(emailnput)
+                                        .addComponent(passwordInput))))))
                     .addGap(34, 34, 34))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(131, 131, 131)
-                    .addComponent(button4, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-                    .addGap(69, 69, 69)
+                    .addGap(128, 128, 128)
+                    .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                    .addGap(72, 72, 72)
                     .addComponent(button3, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -107,15 +150,15 @@ public class signIn extends JFrame {
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label4)
-                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(emailnput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label5)
-                        .addComponent(passwordField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(passwordInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(button4, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button3, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(button3, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
                     .addContainerGap())
         );
         pack();
@@ -130,9 +173,9 @@ public class signIn extends JFrame {
     private JLabel label3;
     private JLabel label4;
     private JLabel label5;
-    private JPasswordField passwordField1;
-    private JTextField textField1;
+    private JPasswordField passwordInput;
+    private JTextField emailnput;
     private JButton button3;
-    private JButton button4;
+    private JButton loginBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

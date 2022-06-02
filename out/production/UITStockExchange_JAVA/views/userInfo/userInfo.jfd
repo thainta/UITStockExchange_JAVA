@@ -8,6 +8,7 @@ new FormModel {
 			"$verticalGroup": "par l {seq {par l {seq {space :::x, comp textPane1:::p::p}, par t {comp label10:::p::p, seq t {comp label2:::p::p, par b {comp label4::b:p::p, comp label5::b:p::p, comp label6::b:p::p, comp label7::b:p::p, comp label8::b:p::p, comp label3::b:p::p}, space :::p, par l:::p {par b:l {comp label11::b:p:31:p, comp button2::b:p::p}, comp button1:::::x, comp label9::l:p:32:p}}}, seq {space :::p, comp label1:::p:136:p}}, space :::p, comp panel1:::p::p, space :::p}}"
 		} ) {
 			name: "this"
+			"$sizePolicy": 1
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/avatar-modified.png" )

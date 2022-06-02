@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :p:110:p, comp label1:::p:159:p, space :p:32:p, comp label2:::p:210:p}, seq l {space :p:44:p, par l {comp label3:::p::p, seq l {par l {comp label5::l:p::p, comp label4::l:p::p}, space :p:30:p, par l {comp textField1:::::x, comp passwordField1:::::x}}}}}, space :p:34:p}, seq t {space :p:131:p, comp button4:::p:139:p, space :p:69:p, comp button3:::p:139:p, space :::x}}"
-			"$verticalGroup": "par l {seq l {space :p:30:p, par l {comp label1:::p:155:p, comp label2:::p:167:p}, space u:::p, comp label3:::p::p, space s:::p, par b {comp label4::b:p::p, comp textField1::b:p::p}, space :::p, par b {comp label5::b:p::p, comp passwordField1::b:p::p}, space :::p, par b {comp button4::b:p:44:p, comp button3::b:p:44:p}, space :::p}}"
+			"$horizontalGroup": "par l {seq {par l {seq {space :p:110:p, comp label1:::p:159:p, space :p:32:p, comp label2:::p:210:p}, seq l {space :p:44:p, par l {comp label3:::p::p, seq l {par l {comp label5::l:p::p, comp label4::l:p::p}, space :p:30:p, par l {comp emailnput:::::x, comp passwordInput:::::x}}}}}, space :p:34:p}, seq t {space :p:128:p, comp loginBtn:::p:139:p, space :p:72:p, comp button3:::p:139:p, space :::x}}"
+			"$verticalGroup": "par l {seq l {space :p:30:p, par l {comp label1:::p:155:p, comp label2:::p:167:p}, space u:::p, comp label3:::p::p, space s:::p, par b {comp label4::b:p::p, comp emailnput::b:p::p}, space :::p, par b {comp label5::b:p::p, comp passwordInput::b:p::p}, space :::p, par b {comp button3::b:p:44:p, comp loginBtn::b:p:44:p}, space :::p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -23,7 +23,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label4"
-				"text": "Username:"
+				"text": "Email:"
 				"font": &Font0 new java.awt.Font( "Tahoma", 0, 24 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -32,18 +32,19 @@ new FormModel {
 				"font": #Font0
 			} )
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
-				name: "passwordField1"
+				name: "passwordInput"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField1"
+				name: "emailnput"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button3"
 				"text": "Register"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button4"
+				name: "loginBtn"
 				"text": "Login"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "loginBtnMouseClicked", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 60, 15 )

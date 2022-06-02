@@ -4,11 +4,13 @@
 
 package views.signUp;
 
+import java.awt.event.*;
 import views.companyInfo.companyInfo;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import controllers.register;
 
 /**
  * @author Le Duy Hoang
@@ -22,6 +24,41 @@ public class signUp extends JFrame {
 
     public signUp() {
         initComponents();
+    }
+
+    private void registerBtnMouseClicked(MouseEvent e) {
+        if (String.valueOf(passInput.getPassword()).equals(String.valueOf(confirmPassInput.getPassword()))) {
+            String sexInput = "male";
+            if (femaleInput.isSelected()) {
+                sexInput = "female";
+            }
+            if (!register.isExist(emailInput.getText())) {
+                register.createUser(
+                    fnInput.getText(),
+                    lnInput.getText(),
+                    dobInput.getText(),
+                    addrInput.getText(),
+                    idcInput.getText(),
+                    sexInput,
+                    phoneInput.getText(),
+                    emailInput.getText(),
+                    passInput.getText()
+                );
+            } else {
+                JOptionPane.showMessageDialog(this, "Email already taken!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Wrong password confirmation");
+        }
+
+    }
+
+    private void maleInputMouseClicked(MouseEvent e) {
+        femaleInput.setSelected(false);
+    }
+
+    private void femaleInputMouseClicked(MouseEvent e) {
+        maleInput.setSelected(false);
     }
 
     private void initComponents() {
@@ -39,19 +76,19 @@ public class signUp extends JFrame {
         label10 = new JLabel();
         label11 = new JLabel();
         label12 = new JLabel();
-        textField1 = new JTextField();
-        textField2 = new JTextField();
-        textField3 = new JTextField();
-        textField4 = new JTextField();
-        textField5 = new JTextField();
-        textField6 = new JTextField();
-        textField7 = new JTextField();
-        passwordField1 = new JPasswordField();
-        passwordField2 = new JPasswordField();
-        button1 = new JButton();
+        fnInput = new JTextField();
+        lnInput = new JTextField();
+        dobInput = new JTextField();
+        addrInput = new JTextField();
+        idcInput = new JTextField();
+        phoneInput = new JTextField();
+        emailInput = new JTextField();
+        passInput = new JPasswordField();
+        confirmPassInput = new JPasswordField();
+        registerBtn = new JButton();
         button2 = new JButton();
-        radioButton1 = new JRadioButton();
-        radioButton2 = new JRadioButton();
+        maleInput = new JRadioButton();
+        femaleInput = new JRadioButton();
 
         //======== this ========
         setFont(new Font("JetBrains Mono", Font.BOLD, 24));
@@ -105,19 +142,38 @@ public class signUp extends JFrame {
         label12.setText("Confirm:");
         label12.setFont(new Font("JetBrains Mono", Font.BOLD, 20));
 
-        //---- button1 ----
-        button1.setText("Register Now!");
+        //---- registerBtn ----
+        registerBtn.setText("Register Now!");
+        registerBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                registerBtnMouseClicked(e);
+            }
+        });
 
         //---- button2 ----
         button2.setText("Login");
 
-        //---- radioButton1 ----
-        radioButton1.setText("Male");
-        radioButton1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        //---- maleInput ----
+        maleInput.setText("Male");
+        maleInput.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        maleInput.setSelected(true);
+        maleInput.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                maleInputMouseClicked(e);
+            }
+        });
 
-        //---- radioButton2 ----
-        radioButton2.setText("Female");
-        radioButton2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        //---- femaleInput ----
+        femaleInput.setText("Female");
+        femaleInput.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        femaleInput.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                femaleInputMouseClicked(e);
+            }
+        });
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -135,33 +191,33 @@ public class signUp extends JFrame {
                                 .addGroup(contentPaneLayout.createSequentialGroup()
                                     .addComponent(label9)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textField6, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(phoneInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
                                     .addComponent(label7)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textField5, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(idcInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
                                     .addComponent(label6)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textField4, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(addrInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
                                     .addComponent(label5)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textField3, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dobInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                                     .addComponent(label4)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lnInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                                     .addComponent(label3)
                                     .addGap(18, 18, 18)
-                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fnInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
                                     .addComponent(label8)
                                     .addGap(168, 168, 168)
-                                    .addComponent(radioButton1)
+                                    .addComponent(maleInput)
                                     .addGap(37, 37, 37)
-                                    .addComponent(radioButton2))
+                                    .addComponent(femaleInput))
                                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                                     .addGroup(contentPaneLayout.createParallelGroup()
                                         .addComponent(label10)
@@ -169,13 +225,13 @@ public class signUp extends JFrame {
                                         .addComponent(label12))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(passwordField2, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(confirmPassInput, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(passwordField1, GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
-                                            .addComponent(textField7, GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))))))
+                                            .addComponent(passInput, GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                                            .addComponent(emailInput, GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))))))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(177, 177, 177)
-                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registerBtn, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(button2, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(16, Short.MAX_VALUE))
@@ -189,50 +245,50 @@ public class signUp extends JFrame {
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label3)
-                                .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fnInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label4)
-                                .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lnInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(30, 30, 30)
                             .addComponent(label2)))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addComponent(label5)
-                        .addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dobInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addComponent(label6)
-                        .addComponent(textField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addrInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addComponent(label7)
-                        .addComponent(textField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(idcInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label8)
-                        .addComponent(radioButton1)
-                        .addComponent(radioButton2))
+                        .addComponent(maleInput)
+                        .addComponent(femaleInput))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label9)
-                        .addComponent(textField6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(phoneInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label10)
-                        .addComponent(textField7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(emailInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label11)
-                        .addComponent(passwordField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(passInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label12)
-                        .addComponent(passwordField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(confirmPassInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(button1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(registerBtn, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
                         .addComponent(button2, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
                     .addGap(0, 19, Short.MAX_VALUE))
         );
@@ -255,18 +311,18 @@ public class signUp extends JFrame {
     private JLabel label10;
     private JLabel label11;
     private JLabel label12;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JPasswordField passwordField1;
-    private JPasswordField passwordField2;
-    private JButton button1;
+    private JTextField fnInput;
+    private JTextField lnInput;
+    private JTextField dobInput;
+    private JTextField addrInput;
+    private JTextField idcInput;
+    private JTextField phoneInput;
+    private JTextField emailInput;
+    private JPasswordField passInput;
+    private JPasswordField confirmPassInput;
+    private JButton registerBtn;
     private JButton button2;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
+    private JRadioButton maleInput;
+    private JRadioButton femaleInput;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
