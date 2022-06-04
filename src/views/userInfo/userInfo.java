@@ -4,11 +4,18 @@
 
 package views.userInfo;
 
-import views.companyInfo.companyInfo;
+import java.awt.event.*;
+import utils.currentUser;
 
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+
+import utils.MySQLConnection;
 
 /**
  * @author Le Duy Hoang
@@ -16,12 +23,45 @@ import javax.swing.GroupLayout;
 public class userInfo extends JFrame {
     public static void main(String[] args) {
 
-        new userInfo().setVisible(true);
     }
 
+    public static Connection getMyConnection()throws SQLException, ClassNotFoundException{
+        return MySQLConnection.getOracleConnection();
+    }
 
-    public userInfo() {
+    public userInfo(currentUser currentUser) {
         initComponents();
+        try {
+            Connection conn = getMyConnection();
+            Statement st = conn.createStatement();
+            try {
+                ResultSet rs = st.executeQuery(String.format("select * from user where id = %2d", currentUser.getId()));
+                while (rs.next()) {
+                    this.fnInput.setText(rs.getString("first_name"));
+                    this.lnInput.setText(rs.getString("last_name"));
+                    this.dobInput.setText(rs.getString("date_of_birth").split(" ",15)[0]);
+                    this.addrInput.setText(rs.getString("address"));
+                    this.idInput.setText(rs.getString("identity_card"));
+                    if (rs.getString("sex").equals("male")) {
+                        this.maleInput.setSelected(true);
+                        this.femaleInput.setSelected(false);
+                    } else {
+                        this.maleInput.setSelected(false);
+                        this.femaleInput.setSelected(true);
+                    }
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private void visibleBtnMouseClicked(MouseEvent e) {
+        // TODO add your code here
     }
 
     private void initComponents() {
@@ -30,36 +70,37 @@ public class userInfo extends JFrame {
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
-        label4 = new JLabel();
+        roleLabel = new JLabel();
         label5 = new JLabel();
-        label6 = new JLabel();
+        statusLabel = new JLabel();
         label7 = new JLabel();
-        label8 = new JLabel();
+        createdOnLabel = new JLabel();
         label9 = new JLabel();
-        label10 = new JLabel();
-        button1 = new JButton();
+        balanceLabel = new JLabel();
+        visibleBtn = new JButton();
         label11 = new JLabel();
-        button2 = new JButton();
+        viewStockBtn = new JButton();
         textPane1 = new JTextPane();
         panel1 = new JPanel();
-        textField3 = new JTextField();
+        lnInput = new JTextField();
         label12 = new JLabel();
         label13 = new JLabel();
-        textField1 = new JTextField();
+        fnInput = new JTextField();
         label14 = new JLabel();
-        textField4 = new JTextField();
+        dobInput = new JTextField();
         label15 = new JLabel();
-        textField5 = new JTextField();
+        addrInput = new JTextField();
         label16 = new JLabel();
-        textField6 = new JTextField();
+        idInput = new JTextField();
         label17 = new JLabel();
-        radioButton1 = new JRadioButton();
-        radioButton2 = new JRadioButton();
+        maleInput = new JRadioButton();
+        femaleInput = new JRadioButton();
         label18 = new JLabel();
         label19 = new JLabel();
-        textField8 = new JTextField();
-        textField9 = new JTextField();
-        button3 = new JButton();
+        phoneInput = new JTextField();
+        emailInput = new JTextField();
+        updateBtn = new JButton();
+        logoutBtn = new JButton();
         textField2 = new JTextField();
 
         //======== this ========
@@ -76,59 +117,65 @@ public class userInfo extends JFrame {
         label3.setText("Role: ");
         label3.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 
-        //---- label4 ----
-        label4.setText("User");
-        label4.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
-        label4.setForeground(Color.red);
+        //---- roleLabel ----
+        roleLabel.setText("User");
+        roleLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+        roleLabel.setForeground(Color.red);
 
         //---- label5 ----
         label5.setText("Status:");
         label5.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 
-        //---- label6 ----
-        label6.setText("Online");
-        label6.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
-        label6.setForeground(Color.green);
+        //---- statusLabel ----
+        statusLabel.setText("Online");
+        statusLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+        statusLabel.setForeground(Color.green);
 
         //---- label7 ----
         label7.setText("CreatedOn:");
         label7.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 
-        //---- label8 ----
-        label8.setText("22/3/2022");
-        label8.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
-        label8.setForeground(Color.blue);
+        //---- createdOnLabel ----
+        createdOnLabel.setText("22/3/2022");
+        createdOnLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+        createdOnLabel.setForeground(Color.blue);
 
         //---- label9 ----
         label9.setText("Balance:");
         label9.setFont(new Font("JetBrains Mono Medium", Font.PLAIN, 15));
 
-        //---- label10 ----
-        label10.setText("**********");
-        label10.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+        //---- balanceLabel ----
+        balanceLabel.setText("**********");
+        balanceLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 
-        //---- button1 ----
-        button1.setText("Visible");
-        button1.setFont(new Font("Source Code Pro", Font.BOLD, 12));
+        //---- visibleBtn ----
+        visibleBtn.setText("Visible");
+        visibleBtn.setFont(new Font("Source Code Pro", Font.BOLD, 12));
+        visibleBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                visibleBtnMouseClicked(e);
+            }
+        });
 
         //---- label11 ----
         label11.setText("StockBag:");
         label11.setFont(new Font("JetBrains Mono Medium", Font.PLAIN, 15));
 
-        //---- button2 ----
-        button2.setText("View");
-        button2.setFont(new Font("Source Code Pro", Font.BOLD, 12));
+        //---- viewStockBtn ----
+        viewStockBtn.setText("View");
+        viewStockBtn.setFont(new Font("Source Code Pro", Font.BOLD, 12));
 
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.hoverSeparatorColor"));
-            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing
-            . border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder
-            . CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .
-            awt .Font .BOLD ,12 ), java. awt. Color. red) ,panel1. getBorder( )) )
-            ; panel1. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-            ) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} )
-            ;
+            panel1.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax .
+            swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border
+            . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog"
+            , java .awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,panel1. getBorder
+            () ) ); panel1. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java
+            . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException
+            ( ) ;} } );
 
             //---- label12 ----
             label12.setText("Last Name:");
@@ -154,13 +201,13 @@ public class userInfo extends JFrame {
             label17.setText("Sex:");
             label17.setFont(new Font("JetBrains Mono", Font.BOLD, 16));
 
-            //---- radioButton1 ----
-            radioButton1.setText("Male");
-            radioButton1.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+            //---- maleInput ----
+            maleInput.setText("Male");
+            maleInput.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 
-            //---- radioButton2 ----
-            radioButton2.setText("Female");
-            radioButton2.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+            //---- femaleInput ----
+            femaleInput.setText("Female");
+            femaleInput.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 
             //---- label18 ----
             label18.setText("Phone:");
@@ -170,11 +217,11 @@ public class userInfo extends JFrame {
             label19.setText("Email:");
             label19.setFont(new Font("JetBrains Mono", Font.BOLD, 16));
 
-            //---- textField9 ----
-            textField9.setEditable(false);
+            //---- emailInput ----
+            emailInput.setEditable(false);
 
-            //---- button3 ----
-            button3.setText("Update");
+            //---- updateBtn ----
+            updateBtn.setText("Update");
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
@@ -187,10 +234,10 @@ public class userInfo extends JFrame {
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addComponent(label13)
                                     .addComponent(label12))
-                                .addGap(18, 18, 18)
+                                .addGap(24, 24, 24)
                                 .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(textField1)
-                                    .addComponent(textField3)))
+                                    .addComponent(lnInput, GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                                    .addComponent(fnInput, GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)))
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addComponent(label14)
@@ -201,23 +248,23 @@ public class userInfo extends JFrame {
                                     .addComponent(label19))
                                 .addGap(47, 47, 47)
                                 .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(textField4)
-                                    .addComponent(textField5)
-                                    .addComponent(textField6, GroupLayout.Alignment.TRAILING)
-                                    .addComponent(textField8)
+                                    .addComponent(dobInput)
+                                    .addComponent(addrInput)
+                                    .addComponent(idInput, GroupLayout.Alignment.TRAILING)
+                                    .addComponent(phoneInput)
                                     .addGroup(panel1Layout.createSequentialGroup()
                                         .addGroup(panel1Layout.createParallelGroup()
-                                            .addComponent(textField9, GroupLayout.PREFERRED_SIZE, 391, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(emailInput, GroupLayout.PREFERRED_SIZE, 391, GroupLayout.PREFERRED_SIZE)
                                             .addGroup(panel1Layout.createSequentialGroup()
                                                 .addGap(66, 66, 66)
-                                                .addComponent(radioButton1)
+                                                .addComponent(maleInput)
                                                 .addGap(40, 40, 40)
-                                                .addComponent(radioButton2)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                                .addComponent(femaleInput)))
+                                        .addGap(0, 9, Short.MAX_VALUE)))))
                         .addGap(78, 78, 78))
                     .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button3, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(updateBtn, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
                         .addGap(248, 248, 248))
             );
             panel1Layout.setVerticalGroup(
@@ -226,86 +273,89 @@ public class userInfo extends JFrame {
                         .addContainerGap()
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label13)
-                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fnInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label12)
-                            .addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lnInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label14)
-                            .addComponent(textField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dobInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(label15)
-                            .addComponent(textField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addrInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(label16)
-                            .addComponent(textField6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(idInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label17)
-                                .addComponent(radioButton1))
-                            .addComponent(radioButton2))
+                                .addComponent(maleInput))
+                            .addComponent(femaleInput))
                         .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label18)
-                            .addComponent(textField8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(label19))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(button3, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(updateBtn, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(13, Short.MAX_VALUE))
             );
         }
+
+        //---- logoutBtn ----
+        logoutBtn.setText("logout");
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(627, 627, 627)
-                            .addComponent(textPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addGap(12, 12, 12)
-                                    .addComponent(label3)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(label4)
-                                    .addGap(34, 34, 34)
-                                    .addComponent(label5)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(label6)
-                                    .addGap(129, 129, 129)
-                                    .addComponent(label8))
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label9, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(label10)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(label11, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(button2, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addGap(94, 94, 94)
-                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(label7)
-                                        .addComponent(label2))))))
+                    .addGap(627, 627, 627)
+                    .addComponent(textPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE))
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap())
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(label3)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(roleLabel)
+                            .addGap(34, 34, 34)
+                            .addComponent(label5)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(statusLabel)
+                            .addGap(129, 129, 129)
+                            .addComponent(createdOnLabel))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label9, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(balanceLabel)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(visibleBtn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(label11, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(viewStockBtn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(94, 94, 94)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(label7)
+                                .addComponent(label2))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                            .addComponent(logoutBtn))))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -315,22 +365,24 @@ public class userInfo extends JFrame {
                             .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(label10)
+                            .addComponent(balanceLabel)
                             .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addComponent(label2)
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                    .addComponent(label2)
+                                    .addComponent(logoutBtn))
                                 .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label4)
+                                    .addComponent(roleLabel)
                                     .addComponent(label5)
-                                    .addComponent(label6)
+                                    .addComponent(statusLabel)
                                     .addComponent(label7)
-                                    .addComponent(label8)
+                                    .addComponent(createdOnLabel)
                                     .addComponent(label3))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(label11, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(button2))
-                                    .addComponent(button1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(viewStockBtn))
+                                    .addComponent(visibleBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(label9, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addContainerGap()
@@ -339,7 +391,7 @@ public class userInfo extends JFrame {
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
         );
-        setSize(625, 550);
+        setSize(645, 550);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -349,36 +401,37 @@ public class userInfo extends JFrame {
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
-    private JLabel label4;
+    private JLabel roleLabel;
     private JLabel label5;
-    private JLabel label6;
+    private JLabel statusLabel;
     private JLabel label7;
-    private JLabel label8;
+    private JLabel createdOnLabel;
     private JLabel label9;
-    private JLabel label10;
-    private JButton button1;
+    private JLabel balanceLabel;
+    private JButton visibleBtn;
     private JLabel label11;
-    private JButton button2;
+    private JButton viewStockBtn;
     private JTextPane textPane1;
     private JPanel panel1;
-    private JTextField textField3;
+    private JTextField lnInput;
     private JLabel label12;
     private JLabel label13;
-    private JTextField textField1;
+    private JTextField fnInput;
     private JLabel label14;
-    private JTextField textField4;
+    private JTextField dobInput;
     private JLabel label15;
-    private JTextField textField5;
+    private JTextField addrInput;
     private JLabel label16;
-    private JTextField textField6;
+    private JTextField idInput;
     private JLabel label17;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
+    private JRadioButton maleInput;
+    private JRadioButton femaleInput;
     private JLabel label18;
     private JLabel label19;
-    private JTextField textField8;
-    private JTextField textField9;
-    private JButton button3;
+    private JTextField phoneInput;
+    private JTextField emailInput;
+    private JButton updateBtn;
+    private JButton logoutBtn;
     private JTextField textField2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

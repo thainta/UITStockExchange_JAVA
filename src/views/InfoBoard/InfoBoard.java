@@ -1,9 +1,13 @@
+package views.InfoBoard;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utils.currentUser;
+import views.userInfo.*;
 /*
  * Created by JFormDesigner on Fri May 06 09:34:18 ICT 2022
  */
@@ -14,11 +18,11 @@ import javax.swing.table.DefaultTableModel;
  * @author unknown
  */
 public class InfoBoard extends JFrame {
+    public currentUser currentUser;
     public static void main(String[] args) {
-        new InfoBoard();
     }
-    public InfoBoard() {
-
+    public InfoBoard(currentUser cUser) {
+        currentUser = cUser;
         initComponents();
         //-----------------------------table2----------------------------------------------------
         String col[] = {"Mã CK","Giá trị","Giá","Thay đổi"};
@@ -83,6 +87,16 @@ public class InfoBoard extends JFrame {
         // TODO add your code here
     }
 
+    private void button1(ActionEvent e) {
+        // TODO add your code here
+    }
+
+    private void myProfileBtnMouseClicked(MouseEvent e) {
+        userInfo userInfoForm = new userInfo(this.currentUser);
+        this.setVisible(false);
+        userInfoForm.setVisible(true);
+    }
+
     
 
 
@@ -97,6 +111,7 @@ public class InfoBoard extends JFrame {
         button2 = new JButton();
         button3 = new JButton();
         button4 = new JButton();
+        myProfileBtn = new JButton();
         panel6 = new JPanel();
         panel7 = new JPanel();
 
@@ -108,13 +123,13 @@ public class InfoBoard extends JFrame {
         //======== panel4 ========
         {
             panel4.setBackground(new Color(41, 55, 66));
-            panel4.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
-            . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax. swing
-            .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
-            Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
-            ) ,panel4. getBorder () ) ); panel4. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
-            public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062order" .equals ( e. getPropertyName (
-            ) ) )throw new RuntimeException( ) ;} } );
+            panel4.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing
+            . border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder
+            . CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .
+            awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,panel4. getBorder () ) )
+            ; panel4. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
+            ) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } )
+            ;
 
             //======== panel5 ========
             {
@@ -132,6 +147,7 @@ public class InfoBoard extends JFrame {
                 button1.setText("Tang gia");
                 button1.setBackground(new Color(57, 75, 89));
                 button1.setForeground(new Color(241, 244, 246));
+                button1.addActionListener(e -> button1(e));
 
                 //---- button2 ----
                 button2.setText("Giam gia");
@@ -148,22 +164,36 @@ public class InfoBoard extends JFrame {
                 button4.setBackground(new Color(57, 75, 89));
                 button4.setForeground(new Color(241, 244, 246));
 
+                //---- myProfileBtn ----
+                myProfileBtn.setText("My Profile");
+                myProfileBtn.setBackground(new Color(57, 75, 89));
+                myProfileBtn.setForeground(new Color(241, 244, 246));
+                myProfileBtn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        myProfileBtnMouseClicked(e);
+                    }
+                });
+
                 GroupLayout panel5Layout = new GroupLayout(panel5);
                 panel5.setLayout(panel5Layout);
                 panel5Layout.setHorizontalGroup(
                     panel5Layout.createParallelGroup()
                         .addGroup(panel5Layout.createSequentialGroup()
-                            .addComponent(button1)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(button2)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(button3)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(button4)
-                            .addGap(0, 151, Short.MAX_VALUE))
-                        .addGroup(panel5Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                            .addGroup(panel5Layout.createParallelGroup()
+                                .addGroup(panel5Layout.createSequentialGroup()
+                                    .addComponent(button1)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(button2)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(button3)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(button4)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                    .addComponent(myProfileBtn))
+                                .addGroup(panel5Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)))
                             .addContainerGap())
                 );
                 panel5Layout.setVerticalGroup(
@@ -173,9 +203,10 @@ public class InfoBoard extends JFrame {
                                 .addComponent(button1)
                                 .addComponent(button2)
                                 .addComponent(button3)
-                                .addComponent(button4))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE))
+                                .addComponent(button4)
+                                .addComponent(myProfileBtn))
+                            .addGap(12, 12, 12)
+                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
                 );
             }
 
@@ -186,7 +217,7 @@ public class InfoBoard extends JFrame {
                 panel6.setLayout(panel6Layout);
                 panel6Layout.setHorizontalGroup(
                     panel6Layout.createParallelGroup()
-                        .addGap(0, 465, Short.MAX_VALUE)
+                        .addGap(0, 461, Short.MAX_VALUE)
                 );
                 panel6Layout.setVerticalGroup(
                     panel6Layout.createParallelGroup()
@@ -201,7 +232,7 @@ public class InfoBoard extends JFrame {
                 panel7.setLayout(panel7Layout);
                 panel7Layout.setHorizontalGroup(
                     panel7Layout.createParallelGroup()
-                        .addGap(0, 465, Short.MAX_VALUE)
+                        .addGap(0, 461, Short.MAX_VALUE)
                 );
                 panel7Layout.setVerticalGroup(
                     panel7Layout.createParallelGroup()
@@ -260,6 +291,7 @@ public class InfoBoard extends JFrame {
     private JButton button2;
     private JButton button3;
     private JButton button4;
+    private JButton myProfileBtn;
     private JPanel panel6;
     private JPanel panel7;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

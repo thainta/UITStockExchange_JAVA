@@ -6,7 +6,8 @@ package views.signIn;
 
 import java.awt.event.*;
 import utils.MySQLConnection;
-import views.companyInfo.companyInfo;
+import utils.currentUser;
+import views.InfoBoard.*;
 import org.mindrot.jbcrypt.BCrypt;
 import java.awt.*;
 import java.sql.Connection;
@@ -21,6 +22,11 @@ import javax.swing.GroupLayout;
  * @author Le Duy Hoang
  */
 public class signIn extends JFrame {
+
+    public currentUser currentUser;
+    public currentUser getCurrentUser() {
+        return currentUser;
+    }
     public static void main(String[] args) {
         signIn form = new signIn();
         form.setVisible(true);
@@ -37,17 +43,22 @@ public class signIn extends JFrame {
     private void loginBtnMouseClicked(MouseEvent e) {
         try {
             Connection conn = getMyConnection();
-            System.out.println("Success");
             Statement st = conn.createStatement();
             try {
-                ResultSet rs = st.executeQuery("select * from user");
-                while (rs.next()) {
-                    if (emailnput.getText().equals(rs.getString("email"))) {
-                        if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("password")) == true) {
-                            JOptionPane.showMessageDialog(this, "Login success");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Wrong password");
+                ResultSet rs = st.executeQuery("select * from user where email=" + emailnput.getText());
+
+                while(rs.next()){
+                    if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("password")) == true) {
+                        JOptionPane.showMessageDialog(this, "Login success");
+                        this.dispose();
+
+                        currentUser = new currentUser(rs.getInt("id"), "", rs.getInt("type_id"));
+                        if (currentUser.getRoleId() == 1) {
+                            InfoBoard infoBoardForm = new InfoBoard(currentUser);
+                            infoBoardForm.setVisible(true);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Wrong password");
                     }
                 }
 

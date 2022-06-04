@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :p:627:p, comp textPane1:::p::p}, seq l {comp label1:::p:142:p, space :::p, par l {seq l {space :p:12:p, comp label3:::p::p, space :::p, comp label4:::p::p, space :p:34:p, comp label5:::p::p, space :::p, comp label6:::p::p, space :p:129:p, comp label8:::p::p}, seq l {comp label9:::p:71:p, space :::p, comp label10:::p::p, space :::p, comp button1:::p:65:p, space :p:30:p, comp label11:::p:90:p, space :::p, comp button2:::p:65:p}, seq l {space :p:94:p, par t {comp label7:::p::p, comp label2:::p::p}}}}}, space :0:0:x}, seq l {comp panel1:::::x, space :::p}}"
-			"$verticalGroup": "par l {seq {par l {seq {space :::x, comp textPane1:::p::p}, par t {comp label10:::p::p, seq t {comp label2:::p::p, par b {comp label4::b:p::p, comp label5::b:p::p, comp label6::b:p::p, comp label7::b:p::p, comp label8::b:p::p, comp label3::b:p::p}, space :::p, par l:::p {par b:l {comp label11::b:p:31:p, comp button2::b:p::p}, comp button1:::::x, comp label9::l:p:32:p}}}, seq {space :::p, comp label1:::p:136:p}}, space :::p, comp panel1:::p::p, space :::p}}"
+			"$horizontalGroup": "par l {seq {space :p:627:p, comp textPane1:::p::p, space :0:0:x}, seq l {comp panel1:::::x, space :::p}, seq {comp label1:::p:142:p, space :::p, par l {seq l {space :p:12:p, comp label3:::p::p, space :::p, comp roleLabel:::p::p, space :p:34:p, comp label5:::p::p, space :::p, comp statusLabel:::p::p, space :p:129:p, comp createdOnLabel:::p::p}, seq l {comp label9:::p:71:p, space :::p, comp balanceLabel:::p::p, space :::p, comp visibleBtn:::p:65:p, space :p:30:p, comp label11:::p:90:p, space :::p, comp viewStockBtn:::p:65:p}, seq l {space :p:94:p, par t {comp label7:::p::p, comp label2:::p::p}, space ::49:x, comp logoutBtn:::p::p}}}}"
+			"$verticalGroup": "par l {seq {par l {seq {space :::x, comp textPane1:::p::p}, par t {comp balanceLabel:::p::p, seq t {par l {comp label2:::p::p, comp logoutBtn:::p::p}, par b {comp roleLabel::b:p::p, comp label5::b:p::p, comp statusLabel::b:p::p, comp label7::b:p::p, comp createdOnLabel::b:p::p, comp label3::b:p::p}, space :::p, par l:::p {par b:l {comp label11::b:p:31:p, comp viewStockBtn::b:p::p}, comp visibleBtn:::::x, comp label9::l:p:32:p}}}, seq {space :::p, comp label1:::p:136:p}}, space :::p, comp panel1:::p::p, space :::p}}"
 		} ) {
 			name: "this"
 			"$sizePolicy": 1
@@ -24,7 +24,7 @@ new FormModel {
 				"font": &Font0 new java.awt.Font( "Yu Gothic UI Semibold", 0, 18 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
+				name: "roleLabel"
 				"text": "User"
 				"font": #Font0
 				"foreground": sfield java.awt.Color red
@@ -35,7 +35,7 @@ new FormModel {
 				"font": #Font0
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label6"
+				name: "statusLabel"
 				"text": "Online"
 				"font": #Font0
 				"foreground": sfield java.awt.Color green
@@ -46,7 +46,7 @@ new FormModel {
 				"font": #Font0
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label8"
+				name: "createdOnLabel"
 				"text": "22/3/2022"
 				"font": #Font0
 				"foreground": sfield java.awt.Color blue
@@ -57,14 +57,15 @@ new FormModel {
 				"font": &Font1 new java.awt.Font( "JetBrains Mono Medium", 0, 15 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label10"
+				name: "balanceLabel"
 				"text": "**********"
 				"font": #Font0
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "visibleBtn"
 				"text": "Visible"
 				"font": &Font2 new java.awt.Font( "Source Code Pro", 1, 12 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "visibleBtnMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label11"
@@ -72,7 +73,7 @@ new FormModel {
 				"font": #Font1
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "viewStockBtn"
 				"text": "View"
 				"font": #Font2
 			} )
@@ -80,13 +81,13 @@ new FormModel {
 				name: "textPane1"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {space :p:35:p, par l {seq l {par l {comp label13:::p::p, comp label12:::p::p}, space :p:18:p, par l {comp textField1:::::x, comp textField3:::::x}}, seq l {par l {comp label14:::p::p, comp label15:::p::p, comp label16::l:p::p, comp label17::l:p::p, comp label18::l:p::p, comp label19::l:p::p}, space :p:47:p, par l {comp textField4:::::x, comp textField5:::::x, comp textField6::t:::x, comp textField8:::::x, seq {par l {comp textField9:::p:391:p, seq {space :p:66:p, comp radioButton1:::p::p, space :p:40:p, comp radioButton2:::p::p}}, space :0:0:x}}}}, space :p:78:p}, seq t {space :::x, comp button3:::p:122:p, space :p:248:p}}"
-				"$verticalGroup": "par l {seq l {space u:::p, par b {comp label13::b:p::p, comp textField1::b:p::p}, space :::p, par b {comp label12::b:p::p, comp textField3::b:p::p}, space :::p, par b {comp label14::b:p::p, comp textField4::b:p::p}, space :::p, par l {comp label15:::p::p, comp textField5:::p::p}, space :::p, par l {comp label16:::p::p, comp textField6::l:p::p}, space u:::p, par l {par b {comp label17::b:p::p, comp radioButton1::b:p::p}, comp radioButton2::l:p::p}, space :p:18:p, par b {comp label18::b:p::p, comp textField8::b:p::p}, space :::p, par b {comp textField9::b:p::p, comp label19::b:p::p}, space u:::p, comp button3:::p:39:p, space ::13:x}}"
+				"$horizontalGroup": "par l {seq l {space :p:35:p, par l {seq l {par l {comp label13:::p::p, comp label12:::p::p}, space :p:24:p, par l {comp lnInput::::394:x, comp fnInput::::394:x}}, seq l {par l {comp label14:::p::p, comp label15:::p::p, comp label16::l:p::p, comp label17::l:p::p, comp label18::l:p::p, comp label19::l:p::p}, space :p:47:p, par l {comp dobInput:::::x, comp addrInput:::::x, comp idInput::t:::x, comp phoneInput:::::x, seq {par l {comp emailInput:::p:391:p, seq {space :p:66:p, comp maleInput:::p::p, space :p:40:p, comp femaleInput:::p::p}}, space :0:9:x}}}}, space :p:78:p}, seq t {space :::x, comp updateBtn:::p:122:p, space :p:248:p}}"
+				"$verticalGroup": "par l {seq l {space u:::p, par b {comp label13::b:p::p, comp fnInput::b:p::p}, space :::p, par b {comp label12::b:p::p, comp lnInput::b:p::p}, space :::p, par b {comp label14::b:p::p, comp dobInput::b:p::p}, space :::p, par l {comp label15:::p::p, comp addrInput:::p::p}, space :::p, par l {comp label16:::p::p, comp idInput::l:p::p}, space u:::p, par l {par b {comp label17::b:p::p, comp maleInput::b:p::p}, comp femaleInput::l:p::p}, space :p:18:p, par b {comp label18::b:p::p, comp phoneInput::b:p::p}, space :::p, par b {comp emailInput::b:p::p, comp label19::b:p::p}, space u:::p, comp updateBtn:::p:39:p, space ::13:x}}"
 			} ) {
 				name: "panel1"
 				"background": new com.jformdesigner.model.SwingColor( "ActionButton.hoverSeparatorColor" )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField3"
+					name: "lnInput"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label12"
@@ -99,7 +100,7 @@ new FormModel {
 					"font": #Font3
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField1"
+					name: "fnInput"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label14"
@@ -107,7 +108,7 @@ new FormModel {
 					"font": #Font3
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField4"
+					name: "dobInput"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label15"
@@ -115,7 +116,7 @@ new FormModel {
 					"font": #Font3
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField5"
+					name: "addrInput"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label16"
@@ -123,7 +124,7 @@ new FormModel {
 					"font": #Font3
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField6"
+					name: "idInput"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label17"
@@ -131,12 +132,12 @@ new FormModel {
 					"font": #Font3
 				} )
 				add( new FormComponent( "javax.swing.JRadioButton" ) {
-					name: "radioButton1"
+					name: "maleInput"
 					"text": "Male"
 					"font": &Font4 new java.awt.Font( "Segoe UI", 0, 16 )
 				} )
 				add( new FormComponent( "javax.swing.JRadioButton" ) {
-					name: "radioButton2"
+					name: "femaleInput"
 					"text": "Female"
 					"font": #Font4
 				} )
@@ -151,20 +152,24 @@ new FormModel {
 					"font": #Font3
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField8"
+					name: "phoneInput"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField9"
+					name: "emailInput"
 					"editable": false
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button3"
+					name: "updateBtn"
 					"text": "Update"
 				} )
 			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "logoutBtn"
+				"text": "logout"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 5 )
-			"size": new java.awt.Dimension( 625, 550 )
+			"size": new java.awt.Dimension( 645, 550 )
 		} )
 		add( new FormComponent( "javax.swing.JTextField" ) {
 			name: "textField2"
