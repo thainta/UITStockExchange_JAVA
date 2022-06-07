@@ -2,12 +2,18 @@ package views.InfoBoard;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.currentUser;
+import views.companyInfo.companyInfo;
 import views.userInfo.*;
+import utils.MySQLConnection;
 /*
  * Created by JFormDesigner on Fri May 06 09:34:18 ICT 2022
  */
@@ -21,35 +27,36 @@ public class InfoBoard extends JFrame {
     public currentUser currentUser;
     public static void main(String[] args) {
     }
-    public InfoBoard(currentUser cUser) {
+    public InfoBoard(currentUser cUser) throws SQLException, ClassNotFoundException {
         currentUser = cUser;
         initComponents();
         //-----------------------------table2----------------------------------------------------
         String col[] = {"Mã CK","Giá trị","Giá","Thay đổi"};
-        String data[][] = {{"HPG",	"687,635",	"42,350",	"300 (0.71%)"},
-                {"VPB",	"576,499",	"34,750",	"-800 (-2.25%)"},
-                {"DIG",	"474,648",	"56,000",	"-2,100 (-3.61%)"},
-                {"DGC",	"420,257",	"232,000",	"-4,800 (-2.03%)"},
-                {"DPM",	"401,586",	"63,400",	"300 (0.48%)"},
-                {"VHM",	"355,755",	"67,700",	"-1,100 (-1.6%)"},
-                {"GEX",	"355,496",	"27,150",	"-1,350 (-4.74%)"},
-                {"FPT",	"354,467",	"102,300",	"-2,400 (-2.29%)"},
-                {"VND",	"336,370",	"28,300",	"-700 (-2.41%)"},
-                {"TCB",	"310,340",	"41,900",	"-700 (-1.64%)"}};
 
-        DefaultTableModel model = new DefaultTableModel(data, col);
+
+        DefaultTableModel model = new DefaultTableModel(col, 0){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        loadStockData(model);
         table2.setModel(model);
+        table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table2.setRowHeight(40);
         table2.setFillsViewportHeight(true);
         table2.setBackground(new Color(41, 55, 66));
         table2.getColumnModel().getColumn(0).setCellRenderer(new MyRenderer(new Color(72, 175, 240)));
-        table2.setShowGrid(false);
+        //table2.setShowGrid(false);
+        //table2.setEnabled(false);
+
 
         //-------------------table2 header------------------------------------------------
         table2.getTableHeader().setBackground(new Color(41, 55, 66));
         table2.getTableHeader().setForeground(new Color(241, 244, 246));
         table2.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        UIManager.getDefaults().put("TableHeader.cellBorder" , BorderFactory.createEmptyBorder(0,0,0,0));
+        //UIManager.getDefaults().put("TableHeader.cellBorder" , BorderFactory.createEmptyBorder(0,0,0,0));
         ((DefaultTableCellRenderer)table2.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.LEFT);
 
         //-----------------------------JPanel----------------------------------------------------
@@ -82,6 +89,43 @@ public class InfoBoard extends JFrame {
         setVisible(true);
         pack();
     }
+    public void loadStockData(DefaultTableModel model) throws SQLException, ClassNotFoundException {
+        Connection conn = MySQLConnection.getMySQLConnection();
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from stock");
+            while(rs.next()){
+                Statement st2 = conn.createStatement();
+                String maCK = rs.getString("stock_name");
+                String company_name = "";
+                double close_price = 0;
+                int id = rs.getInt("id");
+                int company_id = rs.getInt("company_id");
+
+                ResultSet rs2 = st2.executeQuery("select * from daily_price where date = '2022-05-04' and stock_id =" + id);
+                if(!rs2.next()){ continue;}
+                else{
+                  do{
+                        close_price = rs2.getBigDecimal("close_price").doubleValue();
+                    }while (rs2.next());
+                }
+
+                Statement st3 = conn.createStatement();
+                ResultSet rs3 = st3.executeQuery("select company_name from company where id=" + company_id);
+                if(!rs3.next()){ continue;}
+                else{
+                    do{
+                        company_name = rs3.getString("company_name");
+                    }while (rs3.next());
+                }
+                model.addRow(new Object[]{maCK, company_name, close_price, 0});
+            }
+            rs.close();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private void button5(ActionEvent e) {
         // TODO add your code here
@@ -97,12 +141,18 @@ public class InfoBoard extends JFrame {
         userInfoForm.setVisible(true);
     }
 
+    private void table2MouseClicked(MouseEvent e) {
+        int row_selected = table2.getSelectedRow();
+        this.setVisible(false);
+        new companyInfo(this).setVisible(true);
+    }
+
     
 
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         panel4 = new JPanel();
         panel5 = new JPanel();
         scrollPane2 = new JScrollPane();
@@ -123,13 +173,12 @@ public class InfoBoard extends JFrame {
         //======== panel4 ========
         {
             panel4.setBackground(new Color(41, 55, 66));
-            panel4.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing
-            . border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder
-            . CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .
-            awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,panel4. getBorder () ) )
-            ; panel4. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
-            ) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } )
-            ;
+            panel4.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.
+            border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax.swing.border.TitledBorder.CENTER
+            ,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dialo\u0067",java.awt.Font
+            .BOLD,12),java.awt.Color.red),panel4. getBorder()));panel4. addPropertyChangeListener(
+            new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("borde\u0072"
+            .equals(e.getPropertyName()))throw new RuntimeException();}});
 
             //======== panel5 ========
             {
@@ -140,6 +189,12 @@ public class InfoBoard extends JFrame {
                     //---- table2 ----
                     table2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
                     table2.setForeground(new Color(241, 244, 246));
+                    table2.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            table2MouseClicked(e);
+                        }
+                    });
                     scrollPane2.setViewportView(table2);
                 }
 
@@ -189,7 +244,7 @@ public class InfoBoard extends JFrame {
                                     .addComponent(button3)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(button4)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                                     .addComponent(myProfileBtn))
                                 .addGroup(panel5Layout.createSequentialGroup()
                                     .addContainerGap()
@@ -282,7 +337,7 @@ public class InfoBoard extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JPanel panel4;
     private JPanel panel5;
     private JScrollPane scrollPane2;

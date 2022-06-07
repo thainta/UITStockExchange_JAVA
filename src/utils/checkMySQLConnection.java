@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class checkMySQLConnection {
     public static Connection getMyConnection()throws SQLException, ClassNotFoundException{
-        return MySQLConnection.getOracleConnection();
+        return MySQLConnection.getMySQLConnection();
     }
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Connection conn = checkMySQLConnection.getMyConnection();

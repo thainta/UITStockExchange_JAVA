@@ -17,7 +17,7 @@ new FormModel {
 				name: "panel4"
 				"background": new java.awt.Color( 41, 55, 66, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp button3:::p::p, space :::p, comp button4:::p::p, space ::61:x, comp myProfileBtn:::p::p}, seq l {space :::p, comp scrollPane2::::479:x}}, space :::p}}"
+					"$horizontalGroup": "par l {seq {par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp button3:::p::p, space :::p, comp button4:::p::p, space ::62:x, comp myProfileBtn:::p::p}, seq l {space :::p, comp scrollPane2::::479:x}}, space :::p}}"
 					"$verticalGroup": "par l {seq t {par b {comp button1::b:p::p, comp button2::b:p::p, comp button3::b:p::p, comp button4::b:p::p, comp myProfileBtn::b:p::p}, space :p:12:p, comp scrollPane2::::599:x}}"
 				} ) {
 					name: "panel5"
@@ -27,6 +27,7 @@ new FormModel {
 							name: "table2"
 							"font": new java.awt.Font( "Segoe UI", 0, 14 )
 							"foreground": new java.awt.Color( 241, 244, 246, 255 )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "table2MouseClicked", true ) )
 						} )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
