@@ -8,19 +8,38 @@ import java.awt.event.*;
 import utils.currentUser;
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
+import views.signIn.*;
+import views.stockBag.*;
 import utils.MySQLConnection;
 
 /**
  * @author Le Duy Hoang
  */
 public class userInfo extends JFrame {
+    private Double accountBalance;
+    private Integer accountId;
+
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
+    public currentUser cUser;
+    public Double getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(Double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
     public static void main(String[] args) {
 
     }
@@ -29,13 +48,12 @@ public class userInfo extends JFrame {
         return MySQLConnection.getOracleConnection();
     }
 
-    public userInfo(currentUser currentUser) {
-        initComponents();
+    public void showInfo() {
         try {
             Connection conn = getMyConnection();
             Statement st = conn.createStatement();
             try {
-                ResultSet rs = st.executeQuery(String.format("select * from user where id = %2d", currentUser.getId()));
+                ResultSet rs = st.executeQuery(String.format("select * from user where id = %2d", cUser.getId()));
                 while (rs.next()) {
                     this.fnInput.setText(rs.getString("first_name"));
                     this.lnInput.setText(rs.getString("last_name"));
@@ -53,6 +71,15 @@ public class userInfo extends JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            try {
+                ResultSet rs = st.executeQuery(String.format("select * from account where user_id = %2d", currentUser.getId()));
+                while (rs.next()) {
+                    setAccountId(rs.getInt("id"));
+                    setAccountBalance(rs.getDouble("account_balance"));
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         } catch (ClassNotFoundException ex) {
@@ -60,8 +87,67 @@ public class userInfo extends JFrame {
         }
     }
 
+    public void updateInfo() {
+        String query =
+                "UPDATE USER SET first_name=?, last_name=?, date_of_birth=?, address=?, identity_card=?, sex=?, phone=? WHERE id=?";
+        try {
+            Connection conn = getMyConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, this.fnInput.getText());
+            ps.setString(2, this.lnInput.getText());
+            ps.setString(3, this.dobInput.getText());
+            ps.setString(4, this.addrInput.getText());
+            ps.setString(5, this.idInput.getText());
+            if (this.maleInput.isSelected()) {
+                ps.setString(6, "male");
+            } else {
+                ps.setString(6, "female");
+            }
+            ps.setString(7, this.phoneInput.getText());
+            ps.setInt(8, cUser.getId());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Update success!");
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public userInfo(currentUser currentUser) {
+        initComponents();
+        cUser = currentUser;
+        showInfo();
+    }
+
+    private void visibleBtnMouseReleased(MouseEvent e) {
+        if (this.visibleBtn.getText().equals("Visible")) {
+            this.balanceLabel.setText(getAccountBalance().toString() + " VND");
+            this.visibleBtn.setText("Hide");
+        } else {
+            this.balanceLabel.setText("**********");
+            this.visibleBtn.setText("Visible");
+        }
+    }
+
     private void visibleBtnMouseClicked(MouseEvent e) {
         // TODO add your code here
+    }
+
+    private void updateBtnMouseClicked(MouseEvent e) {
+        updateInfo();
+        showInfo();
+    }
+
+    private void logoutBtnMouseClicked(MouseEvent e) {
+        this.dispose();
+        signIn signInForm = new signIn();
+        signInForm.setVisible(true);
+    }
+
+    private void viewStockBtnMouseClicked(MouseEvent e) {
+        stockBag stockBagForm = new stockBag(accountId);
+        stockBagForm.setVisible(true);
     }
 
     private void initComponents() {
@@ -96,9 +182,7 @@ public class userInfo extends JFrame {
         maleInput = new JRadioButton();
         femaleInput = new JRadioButton();
         label18 = new JLabel();
-        label19 = new JLabel();
         phoneInput = new JTextField();
-        emailInput = new JTextField();
         updateBtn = new JButton();
         logoutBtn = new JButton();
         textField2 = new JTextField();
@@ -155,6 +239,11 @@ public class userInfo extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 visibleBtnMouseClicked(e);
+                visibleBtnMouseClicked(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                visibleBtnMouseReleased(e);
             }
         });
 
@@ -165,6 +254,12 @@ public class userInfo extends JFrame {
         //---- viewStockBtn ----
         viewStockBtn.setText("View");
         viewStockBtn.setFont(new Font("Source Code Pro", Font.BOLD, 12));
+        viewStockBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                viewStockBtnMouseClicked(e);
+            }
+        });
 
         //======== panel1 ========
         {
@@ -213,15 +308,14 @@ public class userInfo extends JFrame {
             label18.setText("Phone:");
             label18.setFont(new Font("JetBrains Mono", Font.BOLD, 16));
 
-            //---- label19 ----
-            label19.setText("Email:");
-            label19.setFont(new Font("JetBrains Mono", Font.BOLD, 16));
-
-            //---- emailInput ----
-            emailInput.setEditable(false);
-
             //---- updateBtn ----
             updateBtn.setText("Update");
+            updateBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    updateBtnMouseClicked(e);
+                }
+            });
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
@@ -244,8 +338,7 @@ public class userInfo extends JFrame {
                                     .addComponent(label15)
                                     .addComponent(label16)
                                     .addComponent(label17)
-                                    .addComponent(label18)
-                                    .addComponent(label19))
+                                    .addComponent(label18))
                                 .addGap(47, 47, 47)
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addComponent(dobInput)
@@ -253,14 +346,11 @@ public class userInfo extends JFrame {
                                     .addComponent(idInput, GroupLayout.Alignment.TRAILING)
                                     .addComponent(phoneInput)
                                     .addGroup(panel1Layout.createSequentialGroup()
-                                        .addGroup(panel1Layout.createParallelGroup()
-                                            .addComponent(emailInput, GroupLayout.PREFERRED_SIZE, 391, GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(panel1Layout.createSequentialGroup()
-                                                .addGap(66, 66, 66)
-                                                .addComponent(maleInput)
-                                                .addGap(40, 40, 40)
-                                                .addComponent(femaleInput)))
-                                        .addGap(0, 9, Short.MAX_VALUE)))))
+                                        .addGap(66, 66, 66)
+                                        .addComponent(maleInput)
+                                        .addGap(40, 40, 40)
+                                        .addComponent(femaleInput)
+                                        .addGap(0, 166, Short.MAX_VALUE)))))
                         .addGap(78, 78, 78))
                     .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -300,11 +390,7 @@ public class userInfo extends JFrame {
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label18)
                             .addComponent(phoneInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(emailInput, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label19))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(48, 48, 48)
                         .addComponent(updateBtn, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(13, Short.MAX_VALUE))
             );
@@ -312,6 +398,12 @@ public class userInfo extends JFrame {
 
         //---- logoutBtn ----
         logoutBtn.setText("logout");
+        logoutBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                logoutBtnMouseClicked(e);
+            }
+        });
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -427,9 +519,7 @@ public class userInfo extends JFrame {
     private JRadioButton maleInput;
     private JRadioButton femaleInput;
     private JLabel label18;
-    private JLabel label19;
     private JTextField phoneInput;
-    private JTextField emailInput;
     private JButton updateBtn;
     private JButton logoutBtn;
     private JTextField textField2;
