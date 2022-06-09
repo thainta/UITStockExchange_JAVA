@@ -380,6 +380,7 @@ public class InfoBoard extends JFrame {
                 else continue;
             }
             table2.setModel(model);
+            table2.getColumnModel().getColumn(0).setCellRenderer(new MyRenderer(new Color(72, 175, 240)));
             rs.close();
         }
         catch (SQLException ex) {
