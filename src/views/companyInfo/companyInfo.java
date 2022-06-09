@@ -424,7 +424,7 @@ public class companyInfo extends JFrame {
                                 .addComponent(panel4, GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
                             .addContainerGap())))
         );
-        setSize(1080, 475);
+        setSize(1080, 525);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
