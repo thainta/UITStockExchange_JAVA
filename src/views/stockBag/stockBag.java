@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.table.*;
 import utils.*;
+import views.buyStock.buyStock;
 import views.userInfo.userInfo;
 
 /**
@@ -36,6 +37,7 @@ public class stockBag extends JFrame {
         stockTable.setModel(model);
         stockTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         loadStockBag(model);
+        this.setResizable(false);
     }
 
     public void loadStockBag(DefaultTableModel model) throws SQLException, ClassNotFoundException {
@@ -67,6 +69,18 @@ public class stockBag extends JFrame {
         parentFrame.setVisible(true);
     }
 
+    private void scrollPane1MouseClicked(MouseEvent e) {
+
+    }
+
+    private void stockTableMouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
+        int rowSelected = stockTable.getSelectedRow();
+        int columnSelected = stockTable.getSelectedColumn();
+        if(String.valueOf(stockTable.getValueAt(rowSelected, columnSelected)).equals("Exchange")) {
+            new buyStock(String.valueOf(stockTable.getValueAt(rowSelected, 0)), new utils.currentUser(2, null, 123)).setVisible(true);
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
@@ -83,9 +97,28 @@ public class stockBag extends JFrame {
 
             //======== scrollPane1 ========
             {
+                scrollPane1.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        scrollPane1MouseClicked(e);
+                    }
+                });
 
                 //---- stockTable ----
                 stockTable.setModel(new DefaultTableModel(10, 0));
+                stockTable.setFillsViewportHeight(true);
+                stockTable.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        try {
+                            stockTableMouseClicked(e);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (ClassNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
                 scrollPane1.setViewportView(stockTable);
             }
             tabbedPane1.addTab("Stock owned", scrollPane1);
@@ -105,21 +138,21 @@ public class stockBag extends JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(tabbedPane1, GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(button1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(507, Short.MAX_VALUE))
+                .addComponent(tabbedPane1, GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addComponent(tabbedPane1, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()
+                    .addComponent(tabbedPane1, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                    .addGap(16, 16, 16))
+                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
         );
-        setSize(625, 405);
+        setSize(625, 420);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
