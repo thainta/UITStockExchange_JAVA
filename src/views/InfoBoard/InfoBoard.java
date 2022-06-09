@@ -39,6 +39,7 @@ import org.jfree.chart.text.TextBlock;
 import org.jfree.chart.text.TextMeasurer;
 import org.jfree.chart.text.TextUtils;
 import utils.currentUser;
+import views.companyInfo.companyInfo;
 import views.userInfo.*;
 import utils.MySQLConnection;
 
@@ -269,65 +270,69 @@ public class InfoBoard extends JFrame {
     }
 
     private void table2MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
-        int row_selected = table2.getSelectedRow();
-//        this.setVisible(false);
-//        new companyInfo(this).setVisible(true);
-        volumeSeries = new TimeSeries("Volume");
-        ohlcSeries = new OHLCSeries("price");
-        String StockName = table2.getValueAt(row_selected, 0).toString();
-        OHLCDataset dataset = getDataset(StockName);
-        DateAxis dateAxis = new DateAxis("Date");
-        dateAxis.setLowerMargin(0.02);
-        dateAxis.setUpperMargin(0.02);
-        dateAxis.setAutoRange(true);
-        dateAxis.setTimeline(SegmentedTimeline.newMondayThroughFridayTimeline());
-        //create price axixs
-        NumberAxis priceAxis = new NumberAxis("Price");
-        priceAxis.setAutoRangeIncludesZero(false);
-        OHLCSeriesCollection candlestickDataset = new OHLCSeriesCollection();
-        candlestickDataset.addSeries(ohlcSeries);
-        CandlestickRenderer candlestickRenderer = new CandlestickRenderer(CandlestickRenderer.WIDTHMETHOD_AVERAGE,
-                false, new CustomHighLowItemLabelGenerator(new SimpleDateFormat("yyyy-MM-dd"), NumberFormat.getInstance()));
-        XYPlot candlestickSubplot = new XYPlot(candlestickDataset, null, priceAxis, candlestickRenderer);
-        candlestickSubplot.setBackgroundPaint(Color.white);
-        ////// volume axis
-        TimeSeriesCollection volumeDataset = new TimeSeriesCollection();
-        volumeDataset.addSeries(volumeSeries);
-        // Create volume chart volumeAxis
-        NumberAxis volumeAxis = new NumberAxis("Volume");
-        volumeAxis.setAutoRangeIncludesZero(false);
-        // Set to no decimal
-        volumeAxis.setNumberFormatOverride(new DecimalFormat("0"));
-        // Create volume chart renderer
-        XYBarRenderer timeRenderer = new XYBarRenderer();
-        timeRenderer.setShadowVisible(false);
-        timeRenderer.setMargin(0.3);
-        timeRenderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("Volume--> Time={1} Size={2}",
-                new SimpleDateFormat("yyyy-MM-dd"), new DecimalFormat("0")));
-        // Create volumeSubplot
-        XYPlot volumeSubplot = new XYPlot(volumeDataset, null, volumeAxis, timeRenderer);
-        volumeSubplot.setBackgroundPaint(Color.white);
+        if(e.getClickCount() == 1)
+        {
+            int row_selected = table2.getSelectedRow();
+            volumeSeries = new TimeSeries("Volume");
+            ohlcSeries = new OHLCSeries("price");
+            String StockName = table2.getValueAt(row_selected, 0).toString();
+            OHLCDataset dataset = getDataset(StockName);
+            DateAxis dateAxis = new DateAxis("Date");
+            dateAxis.setLowerMargin(0.02);
+            dateAxis.setUpperMargin(0.02);
+            dateAxis.setAutoRange(true);
+            dateAxis.setTimeline(SegmentedTimeline.newMondayThroughFridayTimeline());
+            //create price axixs
+            NumberAxis priceAxis = new NumberAxis("Price");
+            priceAxis.setAutoRangeIncludesZero(false);
+            OHLCSeriesCollection candlestickDataset = new OHLCSeriesCollection();
+            candlestickDataset.addSeries(ohlcSeries);
+            CandlestickRenderer candlestickRenderer = new CandlestickRenderer(CandlestickRenderer.WIDTHMETHOD_AVERAGE,
+                    false, new CustomHighLowItemLabelGenerator(new SimpleDateFormat("yyyy-MM-dd"), NumberFormat.getInstance()));
+            XYPlot candlestickSubplot = new XYPlot(candlestickDataset, null, priceAxis, candlestickRenderer);
+            candlestickSubplot.setBackgroundPaint(Color.white);
+            ////// volume axis
+            TimeSeriesCollection volumeDataset = new TimeSeriesCollection();
+            volumeDataset.addSeries(volumeSeries);
+            // Create volume chart volumeAxis
+            NumberAxis volumeAxis = new NumberAxis("Volume");
+            volumeAxis.setAutoRangeIncludesZero(false);
+            // Set to no decimal
+            volumeAxis.setNumberFormatOverride(new DecimalFormat("0"));
+            // Create volume chart renderer
+            XYBarRenderer timeRenderer = new XYBarRenderer();
+            timeRenderer.setShadowVisible(false);
+            timeRenderer.setMargin(0.3);
+            timeRenderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("Volume--> Time={1} Size={2}",
+                    new SimpleDateFormat("yyyy-MM-dd"), new DecimalFormat("0")));
+            // Create volumeSubplot
+            XYPlot volumeSubplot = new XYPlot(volumeDataset, null, volumeAxis, timeRenderer);
+            volumeSubplot.setBackgroundPaint(Color.white);
 
-        //////
+            //////
 
-        CombinedDomainXYPlot mainPlot = new CombinedDomainXYPlot(dateAxis);
-        mainPlot.setGap(10.0);
-        mainPlot.add(candlestickSubplot,4);
-        mainPlot.add(volumeSubplot, 2);
-        mainPlot.setOrientation(PlotOrientation.VERTICAL);
-        mainPlot.setDomainGridlinesVisible(true);
-        // JFreeChart chart = ChartFactory.createCandlestickChart("MSFT", "Time", "Price", dataset, false);
-        JFreeChart chart = new JFreeChart(StockName, JFreeChart.DEFAULT_TITLE_FONT, mainPlot, true);
-        chart.removeLegend();
+            CombinedDomainXYPlot mainPlot = new CombinedDomainXYPlot(dateAxis);
+            mainPlot.setGap(10.0);
+            mainPlot.add(candlestickSubplot, 4);
+            mainPlot.add(volumeSubplot, 2);
+            mainPlot.setOrientation(PlotOrientation.VERTICAL);
+            mainPlot.setDomainGridlinesVisible(true);
+            // JFreeChart chart = ChartFactory.createCandlestickChart("MSFT", "Time", "Price", dataset, false);
+            JFreeChart chart = new JFreeChart(StockName, JFreeChart.DEFAULT_TITLE_FONT, mainPlot, true);
+            chart.removeLegend();
 
-        internalFrame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        internalFrame1.setContentPane(new ChartPanel(chart));
-        ((BasicInternalFrameUI)internalFrame1.getUI()).setNorthPane(null);
-        Toolkit kit = Toolkit.getDefaultToolkit();
-        Insets insets = kit.getScreenInsets(internalFrame1.getGraphicsConfiguration());
-        internalFrame1.setLocation((int) (insets.left), (int) (insets.top));
-        internalFrame1.setVisible(true);
-
+            internalFrame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            internalFrame1.setContentPane(new ChartPanel(chart));
+            ((BasicInternalFrameUI) internalFrame1.getUI()).setNorthPane(null);
+            Toolkit kit = Toolkit.getDefaultToolkit();
+            Insets insets = kit.getScreenInsets(internalFrame1.getGraphicsConfiguration());
+            internalFrame1.setLocation((int) (insets.left), (int) (insets.top));
+            internalFrame1.setVisible(true);
+        }
+        else {
+            this.setVisible(false);
+            new companyInfo(this).setVisible(true);
+        }
     }
 
     

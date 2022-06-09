@@ -59,7 +59,8 @@ public class userInfo extends JFrame {
                     this.lnInput.setText(rs.getString("last_name"));
                     this.dobInput.setText(rs.getString("date_of_birth").split(" ",15)[0]);
                     this.addrInput.setText(rs.getString("address"));
-                    this.idInput.setText(rs.getString("identity_card"));
+                    this.idInput.setText(rs.getString("indentity_card"));
+                    setAccountId(rs.getInt("account_id"));
                     if (rs.getString("sex").equals("male")) {
                         this.maleInput.setSelected(true);
                         this.femaleInput.setSelected(false);
@@ -72,7 +73,7 @@ public class userInfo extends JFrame {
                 throw new RuntimeException(ex);
             }
             try {
-                ResultSet rs = st.executeQuery(String.format("select * from account where user_id = %2d", currentUser.getId()));
+                ResultSet rs = st.executeQuery(String.format("select * from account where id = %s", accountId ));
                 while (rs.next()) {
                     setAccountId(rs.getInt("id"));
                     setAccountBalance(rs.getDouble("account_balance"));
@@ -145,9 +146,9 @@ public class userInfo extends JFrame {
         signInForm.setVisible(true);
     }
 
-    private void viewStockBtnMouseClicked(MouseEvent e) {
-        stockBag stockBagForm = new stockBag(accountId);
-        stockBagForm.setVisible(true);
+    private void viewStockBtnMouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
+        new stockBag(accountId, this).setVisible(true);
+        this.setVisible(false);
     }
 
     private void initComponents() {
@@ -257,7 +258,13 @@ public class userInfo extends JFrame {
         viewStockBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                viewStockBtnMouseClicked(e);
+                try {
+                    viewStockBtnMouseClicked(e);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
