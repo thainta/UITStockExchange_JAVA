@@ -45,7 +45,7 @@ public class userInfo extends JFrame {
     }
 
     public static Connection getMyConnection()throws SQLException, ClassNotFoundException{
-        return MySQLConnection.getOracleConnection();
+        return MySQLConnection.getMySQLConnection();
     }
 
     public void showInfo() {

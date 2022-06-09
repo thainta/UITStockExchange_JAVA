@@ -4,21 +4,21 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {comp panel4::l:::x}"
-			"$verticalGroup": "par l {comp panel4::l:::x}"
+			"$horizontalGroup": "par l {comp panel4::t:::x}"
+			"$verticalGroup": "par l {seq l {space :::p, comp panel4:::::x}}"
 		} ) {
 			name: "this"
 			"background": new com.jformdesigner.model.SwingColor( "ActionButton.focusedBorderColor" )
 			"defaultCloseOperation": 3
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq t {par l {comp panel6:::::x, comp panel7:::::x}, space :::p, comp panel5:::p::p}}"
-				"$verticalGroup": "par l {seq {par l {seq {space :::p, comp panel5:::::x}, seq {comp panel6:::::x, space s:::p, comp panel7:::p::p}}, space :::p}}"
+				"$horizontalGroup": "par l {seq t {comp internalFrame1:::::x, space :::p, comp panel5:::p::p}}"
+				"$verticalGroup": "par l {seq {space :::p, comp panel5:::::x, space :::p}, comp internalFrame1::l:::x}"
 			} ) {
 				name: "panel4"
 				"background": new java.awt.Color( 41, 55, 66, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp button3:::p::p, space :::p, comp button4:::p::p, space ::61:x, comp myProfileBtn:::p::p}, seq l {space :::p, comp scrollPane2::::479:x}}, space :::p}}"
-					"$verticalGroup": "par l {seq t {par b {comp button1::b:p::p, comp button2::b:p::p, comp button3::b:p::p, comp button4::b:p::p, comp myProfileBtn::b:p::p}, space :p:12:p, comp scrollPane2::::599:x}}"
+					"$horizontalGroup": "par l {seq t {par t {comp scrollPane2::::485:x, seq {space :257:397:x, comp myProfileBtn:::p::p}}, space :::p}}"
+					"$verticalGroup": "par l {seq t {comp myProfileBtn:::p::p, space :p:12:p, comp scrollPane2::::568:x}}"
 				} ) {
 					name: "panel5"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -27,57 +27,28 @@ new FormModel {
 							name: "table2"
 							"font": new java.awt.Font( "Segoe UI", 0, 14 )
 							"foreground": new java.awt.Color( 241, 244, 246, 255 )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "table2MouseClicked", true ) )
 						} )
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button1"
-						"text": "Tang gia"
-						"background": &Color0 new java.awt.Color( 57, 75, 89, 255 )
-						"foreground": &Color1 new java.awt.Color( 241, 244, 246, 255 )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button2"
-						"text": "Giam gia"
-						"background": #Color0
-						"foreground": #Color1
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button3"
-						"text": "NN mua"
-						"background": #Color0
-						"foreground": #Color1
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button4"
-						"text": "NN ban"
-						"background": #Color0
-						"foreground": #Color1
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "myProfileBtn"
 						"text": "My Profile"
-						"background": #Color0
-						"foreground": #Color1
+						"background": new java.awt.Color( 57, 75, 89, 255 )
+						"foreground": new java.awt.Color( 241, 244, 246, 255 )
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "myProfileBtnMouseClicked", true ) )
 					} )
 				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {space :0:461:x}"
-					"$verticalGroup": "par l {space :0:374:x}"
+					"$verticalGroup": "par l {space :0:604:x}"
 				} ) {
-					name: "panel6"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:461:x}"
-					"$verticalGroup": "par l {space :0:255:x}"
-				} ) {
-					name: "panel7"
+					name: "internalFrame1"
+					"visible": true
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 960, 685 )
+			"size": new java.awt.Dimension( 960, 660 )
 		} )
 	}
 }

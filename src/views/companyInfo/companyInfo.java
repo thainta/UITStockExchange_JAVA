@@ -5,6 +5,7 @@
 package views.companyInfo;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -12,12 +13,10 @@ import javax.swing.GroupLayout;
  * @author Le Duy Hoang
  */
 public class companyInfo extends JFrame {
-    public static void main(String[] args) {
+    private JFrame parentFrame;
 
-        new companyInfo().setVisible(true);
-    }
-
-    public companyInfo() {
+    public companyInfo(JFrame parentFame) {
+        this.parentFrame = parentFame;
         initComponents();
     }
 
@@ -25,9 +24,15 @@ public class companyInfo extends JFrame {
         // TODO: add custom component creation code here
     }
 
+    private void button2MouseClicked(MouseEvent e) {
+        this.setVisible(false);
+        parentFrame.setVisible(true);
+        this.dispose();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         createUIComponents();
 
         panel1 = new JPanel();
@@ -71,13 +76,11 @@ public class companyInfo extends JFrame {
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.pressedBackground"));
-            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new
-            javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax
-            . swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java
-            .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
-            . Color. red) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (new java. beans.
-            PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .
-            equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+            panel1.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(
+            0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder
+            .BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt.Color.
+            red),panel1. getBorder()));panel1. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.
+            beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             //---- label1 ----
             label1.setText("VCB");
@@ -133,7 +136,7 @@ public class companyInfo extends JFrame {
                         .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(15, Short.MAX_VALUE))
                     .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                        .addContainerGap(129, Short.MAX_VALUE)
+                        .addContainerGap(131, Short.MAX_VALUE)
                         .addComponent(button1)
                         .addGap(123, 123, 123))
             );
@@ -256,6 +259,12 @@ public class companyInfo extends JFrame {
                 //---- button2 ----
                 button2.setText("Back");
                 button2.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
+                button2.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        button2MouseClicked(e);
+                    }
+                });
 
                 GroupLayout panel6Layout = new GroupLayout(panel6);
                 panel6.setLayout(panel6Layout);
@@ -296,7 +305,7 @@ public class companyInfo extends JFrame {
                         .addGroup(panel6Layout.createSequentialGroup()
                             .addGap(22, 22, 22)
                             .addComponent(button2, GroupLayout.PREFERRED_SIZE, 278, GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 36, Short.MAX_VALUE))
+                            .addGap(0, 41, Short.MAX_VALUE))
                 );
                 panel6Layout.setVerticalGroup(
                     panel6Layout.createParallelGroup()
@@ -425,12 +434,13 @@ public class companyInfo extends JFrame {
                             .addContainerGap())))
         );
         setSize(1080, 525);
+
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JPanel panel1;
     private JLabel label1;
     private JLabel label2;

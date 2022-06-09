@@ -32,7 +32,7 @@ new FormModel {
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {space :p:12:p, comp label3:::p::p, space :::p, comp textField1:::p:257:p, space ::15:x}, seq t {space ::129:x, comp button1:::p::p, space :p:123:p}}"
+				"$horizontalGroup": "par l {seq l {space :p:12:p, comp label3:::p::p, space :::p, comp textField1:::p:257:p, space ::15:x}, seq t {space ::131:x, comp button1:::p::p, space :p:123:p}}"
 				"$verticalGroup": "par l {seq l {space :::p, par b {comp textField1::b:p::p, comp label3::b:p::p}, space :::x, comp button1:::p::p, space :::p}}"
 			} ) {
 				name: "panel2"
@@ -91,7 +91,7 @@ new FormModel {
 					"font": #Font0
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :::p, par l {seq l {par l {seq t {par l {comp label8::l:p::p, comp label9::l:p::p}, space :::x, par l {comp label15:::p::p, comp label14:::p:30:p}}, seq t {space :0:0:x, comp label16:::p::p, space :p:7:p}, seq t {par l {comp label11::l:p::p, comp label12::l:p::p, comp label10:::p::p}, space :::x, par l {comp label18:::p::p, comp label17:::p:32:p}}}, space :::p}, seq l {comp label13:::p::p, space :::x, comp label19:::p::p, space :p:24:p}}}, seq l {space :p:22:p, comp button2:::p:278:p, space :0:36:x}}"
+					"$horizontalGroup": "par l {seq {space :::p, par l {seq l {par l {seq t {par l {comp label8::l:p::p, comp label9::l:p::p}, space :::x, par l {comp label15:::p::p, comp label14:::p:30:p}}, seq t {space :0:0:x, comp label16:::p::p, space :p:7:p}, seq t {par l {comp label11::l:p::p, comp label12::l:p::p, comp label10:::p::p}, space :::x, par l {comp label18:::p::p, comp label17:::p:32:p}}}, space :::p}, seq l {comp label13:::p::p, space :::x, comp label19:::p::p, space :p:24:p}}}, seq l {space :p:22:p, comp button2:::p:278:p, space :0:41:x}}"
 					"$verticalGroup": "par l {seq l {space :::p, par b {comp label8::b:p::p, comp label14::b:p::p}, space u:::p, par b {comp label9::b:p::p, comp label15::b:p::p}, space u:::p, par b {comp label10::b:p::p, comp label16::b:p::p}, space u:::p, par b {comp label11::b:p::p, comp label17::b:p:20:p}, space u:::p, par b {comp label12::b:p::p, comp label18::b:p::p}, space u:::p, par b {comp label13::b:p::p, comp label19::b:p::p}, space :p:27:p, comp button2:::p:40:p, space ::17:x}}"
 				} ) {
 					name: "panel6"
@@ -166,6 +166,7 @@ new FormModel {
 						name: "button2"
 						"text": "Back"
 						"font": new java.awt.Font( "Yu Gothic UI", 1, 18 )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button2MouseClicked", true ) )
 					} )
 				} )
 			} )

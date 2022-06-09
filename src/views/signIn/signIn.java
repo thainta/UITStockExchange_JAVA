@@ -33,10 +33,11 @@ public class signIn extends JFrame {
     }
 
     public static Connection getMyConnection()throws SQLException, ClassNotFoundException{
-        return MySQLConnection.getOracleConnection();
+        return MySQLConnection.getMySQLConnection();
     }
 
     public signIn() {
+        System.out.println();
         initComponents();
     }
 
@@ -45,10 +46,10 @@ public class signIn extends JFrame {
             Connection conn = getMyConnection();
             Statement st = conn.createStatement();
             try {
-                ResultSet rs = st.executeQuery("select * from user where email=" + emailnput.getText());
+                ResultSet rs = st.executeQuery("select * from user where email='"+ emailnput.getText()+"'" );
 
-                while(rs.next()){
-                    if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("password")) == true) {
+                while(rs.next())
+                    if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("PASSWORD")) == true) {
                         JOptionPane.showMessageDialog(this, "Login success");
                         this.dispose();
 
@@ -62,7 +63,7 @@ public class signIn extends JFrame {
                     }
                 }
 
-            } catch (SQLException ex) {
+             catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         } catch (SQLException ex) {

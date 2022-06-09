@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class register {
     public static Connection getMyConnection()throws SQLException, ClassNotFoundException{
-        return MySQLConnection.getOracleConnection();
+        return MySQLConnection.getMySQLConnection();
     }
     public static boolean isExist (String email) {
         try {
