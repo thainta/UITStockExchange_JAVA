@@ -26,7 +26,7 @@ public class history extends JFrame {
         new history(new currentUser(2, null, 123)).setVisible(true);
     }
     currentUser currentUser;
-    String col[] = {"Symbol", "Volume", "Price", "Type", "Status", "Action"};
+    String col[] = {"id", "Symbol", "Volume", "Price", "Type", "Status", "Action"};
     public history(currentUser currentUser) throws SQLException, ClassNotFoundException {
         this.currentUser = currentUser;
         initComponents();
@@ -39,13 +39,35 @@ public class history extends JFrame {
         };
         table1.setModel(model);
         loadData(model);
-        table1.getColumnModel().getColumn(5).setCellRenderer(new MyRenderer(new Color(48, 112, 209)));
+        table1.getColumnModel().getColumn(0).setMinWidth(0);
+        table1.getColumnModel().getColumn(0).setMaxWidth(0);
+        table1.getColumnModel().getColumn(0).setWidth(0);
+        table1.getColumnModel().getColumn(6).setCellRenderer(new MyRenderer(new Color(48, 112, 209)));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         table1.setFillsViewportHeight(true);
     }
 
-    private void table1MouseClicked(MouseEvent e) {
+    private void table1MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
+        int row = table1.getSelectedRow();
+        int col =   table1.getSelectedColumn();
 
+        if(table1.getValueAt(row,col).toString().equals("Cancel"))
+        {
+            String id = table1.getValueAt(row, 0).toString();
+            if((JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this order", "Delete Order", JOptionPane.YES_NO_OPTION) == 0))
+            {
+                Connection conn = MySQLConnection.getMySQLConnection();
+                try {
+                    Statement st = conn.createStatement();
+                    st.executeUpdate("delete from exchange where id =" + id);
+                    DefaultTableModel model =  (DefaultTableModel) table1.getModel();
+                    model.setRowCount(0);
+                    loadData(model);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
     }
 
     private void initComponents() {
@@ -64,7 +86,13 @@ public class history extends JFrame {
             table1.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    table1MouseClicked(e);
+                    try {
+                        table1MouseClicked(e);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             });
             scrollPane1.setViewportView(table1);
@@ -90,6 +118,7 @@ public class history extends JFrame {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from exchange where user_id ="+currentUser.getId());
             while(rs.next()){
+                int id = rs.getInt("id");
                 int stock_id = rs.getInt("stock_id");
                 int volume = rs.getInt("trading_volumn");
                 int price = rs.getInt("price");
@@ -101,9 +130,9 @@ public class history extends JFrame {
                 rs2.next();
                 String stockName = rs2.getString("stock_name");
                 if(status.equals("pending"))
-                    model.addRow(new Object[]{stockName,volume,price,type, status, "Cancel"});
+                    model.addRow(new Object[]{id, stockName,volume,price,type, status, "Cancel"});
                 else {
-                    model.addRow(new Object[]{stockName,volume,price,type, status, ""});
+                    model.addRow(new Object[]{id, stockName,volume,price,type, status, ""});
                 }
                 rs2.close();
             }
