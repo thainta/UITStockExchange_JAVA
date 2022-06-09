@@ -1,38 +1,22 @@
 package views.InfoBoard;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.*;
-import java.text.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.AbstractRenderer;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
-import org.jfree.chart.text.G2TextMeasurer;
-import org.jfree.chart.ui.RectangleEdge;
-import org.jfree.chart.ui.HorizontalAlignment;
-import org.jfree.chart.ui.TextAnchor;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import org.jfree.data.xy.DefaultOHLCDataset;
 import org.jfree.data.xy.OHLCDataItem;
 import org.jfree.data.xy.OHLCDataset;
 import org.jfree.chart.text.TextBlock;
@@ -42,11 +26,27 @@ import utils.currentUser;
 import views.companyInfo.companyInfo;
 import views.userInfo.*;
 import utils.MySQLConnection;
+import utils.currentUser;
+import views.userInfo.userInfo;
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.DefaultOHLCDataset;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /*
@@ -340,7 +340,7 @@ public class InfoBoard extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
         panel4 = new JPanel();
         panel5 = new JPanel();
         scrollPane2 = new JScrollPane();
@@ -356,13 +356,12 @@ public class InfoBoard extends JFrame {
         //======== panel4 ========
         {
             panel4.setBackground(new Color(41, 55, 66));
-            panel4.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax
-            . swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing
-            . border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .
-            Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red
-            ) ,panel4. getBorder( )) ); panel4. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override
-            public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName (
-            ) )) throw new RuntimeException( ); }} );
+            panel4.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+            EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
+            . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
+            java. awt. Color. red) ,panel4. getBorder( )) ); panel4. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
+            throw new RuntimeException( ); }} );
 
             //======== panel5 ========
             {
@@ -474,7 +473,7 @@ public class InfoBoard extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
     private JPanel panel4;
     private JPanel panel5;
     private JScrollPane scrollPane2;
