@@ -4,19 +4,23 @@
 
 package views.companyInfo;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author Le Duy Hoang
  */
 public class companyInfo extends JFrame {
-    private JFrame parentFrame;
 
-    public companyInfo(JFrame parentFame) {
-        this.parentFrame = parentFame;
+    public static void main(String[] args) {
+        companyInfo form = new companyInfo();
+        form.setVisible(true);
+    }
+    public companyInfo() {
         initComponents();
     }
 
@@ -26,25 +30,15 @@ public class companyInfo extends JFrame {
 
     private void button2MouseClicked(MouseEvent e) {
         this.setVisible(false);
-        parentFrame.setVisible(true);
         this.dispose();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
-        createUIComponents();
-
+        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
         panel1 = new JPanel();
         label1 = new JLabel();
         label2 = new JLabel();
-        panel2 = new JPanel();
-        label3 = new JLabel();
-        textField1 = new JTextField();
-        button1 = new JButton();
-        panel3 = new JPanel();
-        scrollPane2 = new JScrollPane();
-        table2 = new JTable();
         panel4 = new JPanel();
         label4 = new JLabel();
         label5 = new JLabel();
@@ -64,8 +58,11 @@ public class companyInfo extends JFrame {
         label18 = new JLabel();
         label19 = new JLabel();
         button2 = new JButton();
-        panel5 = new JPanel();
+        panel2 = new JPanel();
         scrollPane1 = new JScrollPane();
+        table1 = new JTable();
+        panel3 = new JPanel();
+        label20 = new JLabel();
 
         //======== this ========
         setBackground(UIManager.getColor("BigSpinner.background"));
@@ -76,22 +73,21 @@ public class companyInfo extends JFrame {
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.pressedBackground"));
-            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax
-            . swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing
-            . border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .
-            Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red
-            ) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override
-            public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName (
-            ) )) throw new RuntimeException( ); }} );
+            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
+            border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER
+            , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font
+            .BOLD ,12 ), java. awt. Color. red) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (
+            new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order"
+            .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 
             //---- label1 ----
             label1.setText("VCB");
-            label1.setFont(new Font("JetBrains Mono Medium", Font.BOLD, 25));
+            label1.setFont(new Font("JetBrains Mono Medium", Font.BOLD, 28));
             label1.setForeground(Color.red);
 
             //---- label2 ----
             label2.setText("Ngan hang thuong mai co phan ngoai thuong VN");
-            label2.setFont(new Font("JetBrains Mono Medium", Font.BOLD, 24));
+            label2.setFont(new Font("JetBrains Mono Medium", Font.BOLD, 28));
             label2.setForeground(Color.blue);
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
@@ -102,7 +98,7 @@ public class companyInfo extends JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(label1)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(label2)
+                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 698, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
@@ -113,68 +109,6 @@ public class companyInfo extends JFrame {
                             .addComponent(label1)
                             .addComponent(label2))
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
-        }
-
-        //======== panel2 ========
-        {
-            panel2.setBackground(UIManager.getColor("ActionButton.pressedBorderColor"));
-
-            //---- label3 ----
-            label3.setText("Search");
-            label3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-            //---- button1 ----
-            button1.setText("Search");
-
-            GroupLayout panel2Layout = new GroupLayout(panel2);
-            panel2.setLayout(panel2Layout);
-            panel2Layout.setHorizontalGroup(
-                panel2Layout.createParallelGroup()
-                    .addGroup(panel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(label3)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(15, Short.MAX_VALUE))
-                    .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                        .addContainerGap(131, Short.MAX_VALUE)
-                        .addComponent(button1)
-                        .addGap(123, 123, 123))
-            );
-            panel2Layout.setVerticalGroup(
-                panel2Layout.createParallelGroup()
-                    .addGroup(panel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label3))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button1)
-                        .addContainerGap())
-            );
-        }
-
-        //======== panel3 ========
-        {
-
-            //======== scrollPane2 ========
-            {
-                scrollPane2.setViewportView(table2);
-            }
-
-            GroupLayout panel3Layout = new GroupLayout(panel3);
-            panel3.setLayout(panel3Layout);
-            panel3Layout.setHorizontalGroup(
-                panel3Layout.createParallelGroup()
-                    .addComponent(scrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-            );
-            panel3Layout.setVerticalGroup(
-                panel3Layout.createParallelGroup()
-                    .addGroup(panel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(21, Short.MAX_VALUE))
             );
         }
 
@@ -281,7 +215,7 @@ public class companyInfo extends JFrame {
                                             .addGroup(panel6Layout.createParallelGroup()
                                                 .addComponent(label8)
                                                 .addComponent(label9))
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                                             .addGroup(panel6Layout.createParallelGroup()
                                                 .addComponent(label15)
                                                 .addComponent(label14, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
@@ -305,9 +239,9 @@ public class companyInfo extends JFrame {
                                     .addComponent(label19)
                                     .addGap(24, 24, 24))))
                         .addGroup(panel6Layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
+                            .addGap(21, 21, 21)
                             .addComponent(button2, GroupLayout.PREFERRED_SIZE, 278, GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 41, Short.MAX_VALUE))
+                            .addGap(0, 42, Short.MAX_VALUE))
                 );
                 panel6Layout.setVerticalGroup(
                     panel6Layout.createParallelGroup()
@@ -336,9 +270,9 @@ public class companyInfo extends JFrame {
                             .addGroup(panel6Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label13)
                                 .addComponent(label19))
-                            .addGap(27, 27, 27)
-                            .addComponent(button2, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(17, Short.MAX_VALUE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(button2)
+                            .addContainerGap(46, Short.MAX_VALUE))
                 );
             }
 
@@ -355,7 +289,7 @@ public class companyInfo extends JFrame {
                                 .addComponent(label5))
                             .addComponent(label6)
                             .addComponent(label7))
-                        .addContainerGap(116, Short.MAX_VALUE))
+                        .addContainerGap(121, Short.MAX_VALUE))
                     .addGroup(panel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(panel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -371,30 +305,76 @@ public class companyInfo extends JFrame {
                         .addComponent(label6)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(label7)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panel6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
             );
         }
 
-        //======== panel5 ========
+        //======== panel2 ========
         {
 
-            GroupLayout panel5Layout = new GroupLayout(panel5);
-            panel5.setLayout(panel5Layout);
-            panel5Layout.setHorizontalGroup(
-                panel5Layout.createParallelGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+            GroupLayout panel2Layout = new GroupLayout(panel2);
+            panel2.setLayout(panel2Layout);
+            panel2Layout.setHorizontalGroup(
+                panel2Layout.createParallelGroup()
+                    .addGap(0, 398, Short.MAX_VALUE)
             );
-            panel5Layout.setVerticalGroup(
-                panel5Layout.createParallelGroup()
+            panel2Layout.setVerticalGroup(
+                panel2Layout.createParallelGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
             );
         }
 
         //======== scrollPane1 ========
         {
+
+            //---- table1 ----
+            table1.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null},
+                    {null, null},
+                },
+                new String[] {
+                    "Date", "Trading Volume"
+                }
+            ) {
+                Class<?>[] columnTypes = new Class<?>[] {
+                    String.class, String.class
+                };
+                @Override
+                public Class<?> getColumnClass(int columnIndex) {
+                    return columnTypes[columnIndex];
+                }
+            });
             scrollPane1.setViewportView(table1);
+        }
+
+        //======== panel3 ========
+        {
+            panel3.setBorder(new EtchedBorder());
+
+            //---- label20 ----
+            label20.setText("Trading Record");
+            label20.setHorizontalAlignment(SwingConstants.CENTER);
+            label20.setFont(new Font("Javanese Text", Font.BOLD, 25));
+            label20.setForeground(Color.blue);
+
+            GroupLayout panel3Layout = new GroupLayout(panel3);
+            panel3.setLayout(panel3Layout);
+            panel3Layout.setHorizontalGroup(
+                panel3Layout.createParallelGroup()
+                    .addGroup(panel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(label20, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                        .addContainerGap())
+            );
+            panel3Layout.setVerticalGroup(
+                panel3Layout.createParallelGroup()
+                    .addGroup(panel3Layout.createSequentialGroup()
+                        .addComponent(label20, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+            );
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -402,57 +382,48 @@ public class companyInfo extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                    .addGap(6, 6, 6))
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                        .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(panel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(panel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap())
+                            .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(11, 11, 11))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(panel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                            .addContainerGap())))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(panel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(panel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(panel3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                                .addComponent(panel4, GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
-                            .addContainerGap())))
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(31, Short.MAX_VALUE))
         );
-        setSize(1080, 525);
-
+        setSize(775, 515);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
     private JPanel panel1;
     private JLabel label1;
     private JLabel label2;
-    private JPanel panel2;
-    private JLabel label3;
-    private JTextField textField1;
-    private JButton button1;
-    private JPanel panel3;
-    private JScrollPane scrollPane2;
-    private JTable table2;
     private JPanel panel4;
     private JLabel label4;
     private JLabel label5;
@@ -472,8 +443,10 @@ public class companyInfo extends JFrame {
     private JLabel label18;
     private JLabel label19;
     private JButton button2;
-    private JPanel panel5;
+    private JPanel panel2;
     private JScrollPane scrollPane1;
     private JTable table1;
+    private JPanel panel3;
+    private JLabel label20;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
