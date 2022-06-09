@@ -98,11 +98,11 @@ public class buyStock extends JFrame {
                 if(account_balance >= Integer.valueOf(textField3.getText()) * Integer.valueOf(textField4.getText())) {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = formatter.format(new Date());
-                    String query = String.format("insert into exchange(stock_id,user_id, trading_volumn, price,type, create_on) values (%s, %s, %s, %s, '%s', '%s')",
-                            String.valueOf(stock_id), String.valueOf(userId), textField4.getText(), textField3.getText(), "buy", date);
-                    JOptionPane.showMessageDialog(this, "Order to buy successfully", "Success", JOptionPane.ERROR_MESSAGE);
+                    String query = String.format("insert into exchange(stock_id,user_id,status trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
+                            String.valueOf(stock_id), String.valueOf(userId),"pending", textField4.getText(), textField3.getText(), "buy", date);
+                    JOptionPane.showMessageDialog(this, "Order to buy successfully");
                     System.out.println(st.executeUpdate(query) + " Row inserted");
-//
+
 ////                System.out.println(st.executeUpdate(String.format("insert stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
 ////                        String.valueOf(account_id), String.valueOf(stock_id), textField4.getText(), textField3.getText())) + " Row inserted");
 ////                st.executeUpdate(String.format("update account set account_balance = %s where id = %s", account_balance - Integer.valueOf(textField3.getText()) * Integer.valueOf(textField4.getText()), account_id));
@@ -125,17 +125,17 @@ public class buyStock extends JFrame {
                 stock_id = rs1.getInt("id");
 
                 String rs2query = "select * from stock_bag where stock_id =" + stock_id + " and account_id = " + account_id;
-                System.out.println(rs2query);
                 ResultSet rs2 = st.executeQuery(rs2query);
                 if(rs2.next()){
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = formatter.format(new Date());
                     int availableVolum = rs2.getInt("amount");
                     if(availableVolum > Integer.valueOf(textField4.getText())) {
-                        String query = String.format("insert into exchange(stock_id,user_id, trading_volumn, price,type, create_on) values (%s, %s, %s, %s, '%s', '%s')",
-                                String.valueOf(stock_id), String.valueOf(userId), textField4.getText(), textField3.getText(), "sell", date);
+                        String query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
+                                String.valueOf(stock_id), String.valueOf(userId),"pending", textField4.getText(), textField3.getText(), "sell", date);
+                        System.out.println(query);
                         System.out.println(st.executeUpdate(query) + " Row inserted");
-                        JOptionPane.showMessageDialog(this, "Order to sell successfully", "Success", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Order to sell successfully");
                     }
                     else JOptionPane.showMessageDialog(this, "Not enough stock volume", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }

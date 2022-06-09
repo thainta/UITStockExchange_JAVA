@@ -43,15 +43,16 @@ public class companyInfo extends JFrame {
         Connection conn = MySQLConnection.getMySQLConnection();
         try{
             Statement st = conn.createStatement();
-            String query = String.format("select * from daily_price where date = '2022-06-07' and stock_id=%s", stockId);
+            String query = String.format("select * from daily_price where stock_id=%s order by date desc", stockId);
             ResultSet rs = st.executeQuery(query);
 
             rs.next();
             label15.setText(String.valueOf(rs.getInt("volume")));
-            label16.setText(String.valueOf(rs.getInt("volume")));
+            label16.setText(String.valueOf(rs.getInt("volume") * rs.getInt("open_price")));
             label17.setText(String.valueOf(rs.getInt("open_price")));
             label18.setText(String.valueOf(rs.getInt("high_price")));
             label19.setText(String.valueOf(rs.getInt("low_price")));
+            label7.setText(rs.getString("date"));
             rs.close();
             query = "select count(*) from exchange where stock_id ="+stockId;
             ResultSet rs2 = st.executeQuery(query);

@@ -216,15 +216,11 @@ public class InfoBoard extends JFrame {
                 int id = rs.getInt("id");
                 int company_id = rs.getInt("company_id");
                 int volume = 0;
-
-                ResultSet rs2 = st2.executeQuery("select * from daily_price where date = '2022-05-04' and stock_id =" + id);
-                if(!rs2.next()){ continue;}
-                else{
-                  do{
-                        close_price = rs2.getBigDecimal("close_price").doubleValue();
-                        volume = rs2.getInt("volume");
-                    }while (rs2.next());
-                }
+                String query = String.format("select * from daily_price where stock_id=%s order by date desc", id);
+                ResultSet rs2 = st2.executeQuery(query);
+                rs2.next();
+                close_price = rs2.getBigDecimal("close_price").doubleValue();
+                volume = rs2.getInt("volume");
 
                 Statement st3 = conn.createStatement();
                 ResultSet rs3 = st3.executeQuery("select company_name from company where id=" + company_id);
