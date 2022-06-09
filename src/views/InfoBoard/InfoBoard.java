@@ -318,8 +318,19 @@ public class InfoBoard extends JFrame {
             internalFrame1.setVisible(true);
         }
         else {
-            this.setVisible(false);
-            new companyInfo(this).setVisible(true);
+            Connection conn = MySQLConnection.getMySQLConnection();
+            String stockNme = table2.getValueAt(table2.getSelectedRow(),0).toString();
+            try{
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("select id from stock where stock_name ='"+ stockNme+"'");
+                rs.next();
+                new companyInfo( rs.getInt("id"), table2.getValueAt(table2.getSelectedRow(),1).toString(), stockNme).setVisible(true);
+                rs.close();
+            }
+            catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
         }
     }
 
@@ -334,7 +345,6 @@ public class InfoBoard extends JFrame {
                 }
             };
             String Search = textField1.getText();
-            System.out.println("kkk".indexOf(""));
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from stock");
             while(rs.next()){

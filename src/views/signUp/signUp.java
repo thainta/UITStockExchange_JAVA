@@ -44,6 +44,7 @@ public class signUp extends JFrame {
                     emailInput.getText(),
                     passInput.getText()
                 );
+                register.createAccount(emailInput.getText());
             } else {
                 JOptionPane.showMessageDialog(this, "Email already taken!");
             }
