@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {comp tabbedPane1::l::623:x}"
-			"$verticalGroup": "par l {seq t {comp tabbedPane1:::p:312:p, space :p:46:p}}"
+			"$horizontalGroup": "par l {seq l {space :::p, comp button1:::p:110:p, space ::507:x}, comp tabbedPane1::l::623:x}"
+			"$verticalGroup": "par l {seq t {space :::p, comp tabbedPane1:::p:328:p, space :::p, comp button1:::p:39:p}}"
 		} ) {
 			name: "this"
 			"$sizePolicy": 1
@@ -13,98 +13,37 @@ new FormModel {
 				name: "tabbedPane1"
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane1"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "scrollPane1MouseClicked", true ) )
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "stockTable"
 						"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-							add( new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( "Sell" )
-							} )
-						}, new java.util.Vector {
-							add( "Stock Name" )
-							add( "Amount" )
-							add( "Value" )
-							add( "Action" )
-						}, new java.util.Vector {
-							add( null )
-							add( null )
-							add( null )
-							add( class java.lang.Object )
-						}, new java.util.Vector {
-							add( false )
-							add( false )
-							add( false )
-							add( false )
-						}, new java.util.Vector {
-							add( new com.jformdesigner.model.SwingTableColumn( null, 200, 0, 200, false ) )
-							add( new com.jformdesigner.model.SwingTableColumn( null, 120, 0, 120, false ) )
-							add( new com.jformdesigner.model.SwingTableColumn( null, 160, 0, 160, false ) )
-							add( new com.jformdesigner.model.SwingTableColumn( new java.lang.Object[ "Sell" ], 50, 0, 50, true ) )
-						} )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+							add( new java.util.Vector )
+						}, new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector )
+						"fillsViewportHeight": true
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "stockTableMouseClicked", true ) )
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Stock owned"
 				} )
 			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Back"
+				"font": new java.awt.Font( "Segoe UI", 0, 16 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 625, 340 )
+			"size": new java.awt.Dimension( 625, 420 )
 		} )
 	}
 }
