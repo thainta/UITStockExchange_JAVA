@@ -11,6 +11,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import controllers.register;
+import views.signIn.signIn;
 
 /**
  * @author Le Duy Hoang
@@ -44,6 +45,7 @@ public class signUp extends JFrame {
                     emailInput.getText(),
                     passInput.getText()
                 );
+                register.createAccount(emailInput.getText());
             } else {
                 JOptionPane.showMessageDialog(this, "Email already taken!");
             }
@@ -61,9 +63,14 @@ public class signUp extends JFrame {
         maleInput.setSelected(false);
     }
 
+    private void button2MouseClicked(MouseEvent e) {
+        new signIn().setVisible(true);
+        this.dispose();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -153,6 +160,12 @@ public class signUp extends JFrame {
 
         //---- button2 ----
         button2.setText("Login");
+        button2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                button2MouseClicked(e);
+            }
+        });
 
         //---- maleInput ----
         maleInput.setText("Male");
@@ -298,7 +311,7 @@ public class signUp extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;

@@ -17,8 +17,8 @@ new FormModel {
 				name: "panel4"
 				"background": new java.awt.Color( 41, 55, 66, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq t {par t {comp scrollPane2::::485:x, seq {space :257:397:x, comp myProfileBtn:::p::p}}, space :::p}}"
-					"$verticalGroup": "par l {seq t {comp myProfileBtn:::p::p, space :p:12:p, comp scrollPane2::::568:x}}"
+					"$horizontalGroup": "par l {seq t {par t {comp scrollPane2::::485:x, seq {comp textField1:::::x, space s:::p, comp button1:::p::p, space :p:35:p, comp myProfileBtn:::p::p}}, space :::p}}"
+					"$verticalGroup": "par l {seq t {par l {comp myProfileBtn:::p::p, comp button1:::p::p, comp textField1::l:p:30:p}, space :::p, comp scrollPane2::::574:x}}"
 				} ) {
 					name: "panel5"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -36,6 +36,14 @@ new FormModel {
 						"background": new java.awt.Color( 57, 75, 89, 255 )
 						"foreground": new java.awt.Color( 241, 244, 246, 255 )
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "myProfileBtnMouseClicked", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField1"
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button1"
+						"text": "Search"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {

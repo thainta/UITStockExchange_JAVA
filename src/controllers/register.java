@@ -31,9 +31,9 @@ public class register {
             throw new RuntimeException(ex);
         }
     }
-    public static void createAccount(String email) {
+    public static int createAccount(String email) {
         Integer userID = 0;
-        String query = "SELECT id FROM USER WHERE EMAIL=" + email;
+        String query = "SELECT id FROM USER WHERE email='" + email+"'";
         try {
             Connection conn = getMyConnection();
             Statement ps = conn.createStatement();
@@ -47,17 +47,22 @@ public class register {
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
-        query = "INSERT INTO ACCOUNT(account_balance, user_id) VALUES(0, ?)";
+        query = "INSERT INTO ACCOUNT(id, account_balance) VALUES(?, 0)";
         try {
             Connection conn = getMyConnection();
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, userID);
             ps.executeUpdate();
+
+            query = String.format("update user set account_id = %s where id = %s", userID, userID);
+
+            ps.executeUpdate(query);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
+        return userID;
     }
     public static void createUser(String fn, String ls, String dob, String addr, String idc, String sex, String phone, String email, String pass) {
         String hash = BCrypt.hashpw(pass, BCrypt.gensalt(10));
@@ -76,7 +81,6 @@ public class register {
             ps.setString(8, email);
             ps.setString(9, hash);
             ps.executeUpdate();
-            createAccount(email);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         } catch (ClassNotFoundException ex) {

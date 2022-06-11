@@ -9,6 +9,8 @@ import utils.MySQLConnection;
 import utils.currentUser;
 import views.InfoBoard.*;
 import org.mindrot.jbcrypt.BCrypt;
+import views.signUp.signUp;
+
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
-
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.chart.date.MonthConstants;
 
 /**
  * @author Le Duy Hoang
@@ -37,7 +40,6 @@ public class signIn extends JFrame {
     }
 
     public signIn() {
-        System.out.println();
         initComponents();
     }
 
@@ -73,9 +75,14 @@ public class signIn extends JFrame {
         }
     }
 
+    private void button3MouseClicked(MouseEvent e) {
+        this.dispose();
+        new signUp().setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -109,6 +116,12 @@ public class signIn extends JFrame {
 
         //---- button3 ----
         button3.setText("Register");
+        button3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                button3MouseClicked(e);
+            }
+        });
 
         //---- loginBtn ----
         loginBtn.setText("Login");
@@ -179,7 +192,7 @@ public class signIn extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;

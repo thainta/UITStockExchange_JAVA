@@ -1,12 +1,21 @@
 package views.InfoBoard;
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import java.text.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.AbstractRenderer;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
@@ -16,37 +25,17 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
-import org.jfree.data.xy.DefaultOHLCDataset;
 import org.jfree.data.xy.OHLCDataItem;
 import org.jfree.data.xy.OHLCDataset;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextMeasurer;
-import org.jfree.chart.text.TextUtils;
 import utils.currentUser;
 import views.companyInfo.companyInfo;
 import views.userInfo.*;
 import utils.MySQLConnection;
-import utils.currentUser;
-import views.userInfo.userInfo;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.DefaultOHLCDataset;
 
 
 /*
@@ -62,14 +51,13 @@ public class InfoBoard extends JFrame {
     public currentUser currentUser;
     private TimeSeries volumeSeries = new TimeSeries("Volume");
     private OHLCSeries ohlcSeries = new OHLCSeries("Price");
+    String col[] = {"Symbol","Company","Price","Volume"};
     public static void main(String[] args) {
     }
     public InfoBoard(currentUser cUser) throws SQLException, ClassNotFoundException {
         currentUser = cUser;
         initComponents();
         //-----------------------------table2----------------------------------------------------
-        String col[] = {"Symbol","Company","Price","Volume"};
-
 
         DefaultTableModel model = new DefaultTableModel(col, 0){
 
@@ -98,6 +86,7 @@ public class InfoBoard extends JFrame {
 
         //-----------------------------JPanel----------------------------------------------------
         panel5.setBackground(new Color(41, 55, 66));
+
         Jpanell k = new Jpanell();
         k.setBackground(Color.red);
         Jpanell t = new Jpanell();
@@ -163,6 +152,7 @@ public class InfoBoard extends JFrame {
         this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
 
         ///////////////////////////////-------------------------------///////////////////////////////////
+        setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
 
@@ -228,15 +218,11 @@ public class InfoBoard extends JFrame {
                 int id = rs.getInt("id");
                 int company_id = rs.getInt("company_id");
                 int volume = 0;
-
-                ResultSet rs2 = st2.executeQuery("select * from daily_price where date = '2022-05-04' and stock_id =" + id);
-                if(!rs2.next()){ continue;}
-                else{
-                  do{
-                        close_price = rs2.getBigDecimal("close_price").doubleValue();
-                        volume = rs2.getInt("volume");
-                    }while (rs2.next());
-                }
+                String query = String.format("select * from daily_price where stock_id=%s order by date desc", id);
+                ResultSet rs2 = st2.executeQuery(query);
+                rs2.next();
+                close_price = rs2.getBigDecimal("close_price").doubleValue();
+                volume = rs2.getInt("volume");
 
                 Statement st3 = conn.createStatement();
                 ResultSet rs3 = st3.executeQuery("select company_name from company where id=" + company_id);
@@ -264,9 +250,10 @@ public class InfoBoard extends JFrame {
     }
 
     private void myProfileBtnMouseClicked(MouseEvent e) {
-        userInfo userInfoForm = new userInfo(this.currentUser);
-        this.setVisible(false);
+        userInfo userInfoForm = new userInfo(this.currentUser, this);
+//        this.setVisible(false);
         userInfoForm.setVisible(true);
+        this.setEnabled(false);
     }
 
     private void table2MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
@@ -330,8 +317,73 @@ public class InfoBoard extends JFrame {
             internalFrame1.setVisible(true);
         }
         else {
-            this.setVisible(false);
-            new companyInfo(this).setVisible(true);
+            Connection conn = MySQLConnection.getMySQLConnection();
+            String stockNme = table2.getValueAt(table2.getSelectedRow(),0).toString();
+            try{
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("select id from stock where stock_name ='"+ stockNme+"'");
+                rs.next();
+                new companyInfo( rs.getInt("id"), table2.getValueAt(table2.getSelectedRow(),1).toString(), stockNme).setVisible(true);
+                rs.close();
+            }
+            catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+        }
+    }
+
+    private void button1MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
+        Connection conn = MySQLConnection.getMySQLConnection();
+        try{
+            DefaultTableModel model = new DefaultTableModel(col, 0){
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            String Search = textField1.getText();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from stock");
+            while(rs.next()){
+                Statement st2 = conn.createStatement();
+                String maCK = rs.getString("stock_name");
+                String company_name = "";
+                double close_price = 0;
+                int id = rs.getInt("id");
+                int company_id = rs.getInt("company_id");
+                int volume = 0;
+                if(maCK.indexOf(Search) == 0) {
+                    ResultSet rs2 = st2.executeQuery("select * from daily_price where date = '2022-05-04' and stock_id =" + id);
+                    if (!rs2.next()) {
+                        continue;
+                    } else {
+                        do {
+                            close_price = rs2.getBigDecimal("close_price").doubleValue();
+                            volume = rs2.getInt("volume");
+                        } while (rs2.next());
+                    }
+
+                    Statement st3 = conn.createStatement();
+                    ResultSet rs3 = st3.executeQuery("select company_name from company where id=" + company_id);
+                    if (!rs3.next()) {
+                        continue;
+                    } else {
+                        do {
+                            company_name = rs3.getString("company_name");
+                        } while (rs3.next());
+                    }
+                    model.addRow(new Object[]{maCK, company_name, close_price, volume});
+                }
+                else continue;
+            }
+            table2.setModel(model);
+            table2.getColumnModel().getColumn(0).setCellRenderer(new MyRenderer(new Color(72, 175, 240)));
+            rs.close();
+        }
+        catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -340,12 +392,14 @@ public class InfoBoard extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         panel4 = new JPanel();
         panel5 = new JPanel();
         scrollPane2 = new JScrollPane();
         table2 = new JTable();
         myProfileBtn = new JButton();
+        textField1 = new JTextField();
+        button1 = new JButton();
         internalFrame1 = new JInternalFrame();
 
         //======== this ========
@@ -356,12 +410,13 @@ public class InfoBoard extends JFrame {
         //======== panel4 ========
         {
             panel4.setBackground(new Color(41, 55, 66));
-            panel4.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-            EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
-            . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
-            java. awt. Color. red) ,panel4. getBorder( )) ); panel4. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
-            throw new RuntimeException( ); }} );
+            panel4.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax
+            .swing.border.EmptyBorder(0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax.swing
+            .border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.
+            Font("D\u0069al\u006fg",java.awt.Font.BOLD,12),java.awt.Color.red
+            ),panel4. getBorder()));panel4. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override
+            public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062or\u0064er".equals(e.getPropertyName(
+            )))throw new RuntimeException();}});
 
             //======== panel5 ========
             {
@@ -398,6 +453,21 @@ public class InfoBoard extends JFrame {
                     }
                 });
 
+                //---- button1 ----
+                button1.setText("Search");
+                button1.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        try {
+                            button1MouseClicked(e);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (ClassNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
+
                 GroupLayout panel5Layout = new GroupLayout(panel5);
                 panel5.setLayout(panel5Layout);
                 panel5Layout.setHorizontalGroup(
@@ -406,16 +476,22 @@ public class InfoBoard extends JFrame {
                             .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                                 .addGroup(panel5Layout.createSequentialGroup()
-                                    .addGap(257, 397, Short.MAX_VALUE)
+                                    .addComponent(textField1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(button1)
+                                    .addGap(35, 35, 35)
                                     .addComponent(myProfileBtn)))
                             .addContainerGap())
                 );
                 panel5Layout.setVerticalGroup(
                     panel5Layout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
-                            .addComponent(myProfileBtn)
-                            .addGap(12, 12, 12)
-                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE))
+                            .addGroup(panel5Layout.createParallelGroup()
+                                .addComponent(myProfileBtn)
+                                .addComponent(button1)
+                                .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
                 );
             }
 
@@ -473,12 +549,14 @@ public class InfoBoard extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JPanel panel4;
     private JPanel panel5;
     private JScrollPane scrollPane2;
     private JTable table2;
     private JButton myProfileBtn;
+    private JTextField textField1;
+    private JButton button1;
     private JInternalFrame internalFrame1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
