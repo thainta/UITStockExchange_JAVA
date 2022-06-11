@@ -12,6 +12,7 @@ import java.sql.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
+import views.history.history;
 import views.signIn.*;
 import views.stockBag.*;
 import utils.MySQLConnection;
@@ -22,6 +23,7 @@ import utils.MySQLConnection;
 public class userInfo extends JFrame {
     private Double accountBalance;
     private Integer accountId;
+    JFrame parentFrame;
 
     public Integer getAccountId() {
         return accountId;
@@ -60,6 +62,7 @@ public class userInfo extends JFrame {
                     this.dobInput.setText(rs.getString("date_of_birth").split(" ",15)[0]);
                     this.addrInput.setText(rs.getString("address"));
                     this.idInput.setText(rs.getString("indentity_card"));
+                    label2.setText(rs.getString("last_name") + " "+ rs.getString("first_name"));
                     setAccountId(rs.getInt("account_id"));
                     if (rs.getString("sex").equals("male")) {
                         this.maleInput.setSelected(true);
@@ -115,7 +118,8 @@ public class userInfo extends JFrame {
         }
     }
 
-    public userInfo(currentUser currentUser) {
+    public userInfo(currentUser currentUser, JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponents();
         cUser = currentUser;
         showInfo();
@@ -151,9 +155,31 @@ public class userInfo extends JFrame {
         this.setVisible(false);
     }
 
+    private void button1MouseClicked(MouseEvent e) {
+        parentFrame.setVisible(true);
+        parentFrame.setEnabled(true);
+        this.dispose();
+        
+    }
+
+    private void button2MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
+        this.dispose();
+        new history(cUser, this).setVisible(true);
+    }
+
+    private void thisWindowClosed(WindowEvent e) {
+        // TODO add your code here
+
+    }
+
+    private void thisWindowClosing(WindowEvent e) {
+        parentFrame.setEnabled(true);
+        parentFrame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -258,26 +284,19 @@ public class userInfo extends JFrame {
         viewStockBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
-                    viewStockBtnMouseClicked(e);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
+                viewStockBtnMouseClicked(e);
             }
         });
 
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.hoverSeparatorColor"));
-            panel1.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax
-            .swing.border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing
-            .border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.
-            Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt.Color.red
-            ),panel1. getBorder()));panel1. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override
-            public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName(
-            )))throw new RuntimeException();}});
+            panel1.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border
+            .EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border.TitledBorder.CENTER,javax
+            .swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,
+            12),java.awt.Color.red),panel1. getBorder()));panel1. addPropertyChangeListener(new java.beans
+            .PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.
+            getPropertyName()))throw new RuntimeException();}});
 
             //---- label12 ----
             label12.setText("Last Name:");
@@ -496,7 +515,7 @@ public class userInfo extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
