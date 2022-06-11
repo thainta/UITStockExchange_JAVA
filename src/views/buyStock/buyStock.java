@@ -74,7 +74,84 @@ public class buyStock extends JFrame {
     private void button3(ActionEvent e) {
         // TODO add your code here
     }
+    public boolean isHasStock(int stockId) throws SQLException, ClassNotFoundException {
+        Connection conn = MySQLConnection.getMySQLConnection();
+        try {
+            Statement st = conn.createStatement();
+            String query = "";
+                query = String.format("select * from stock_bag where stock_id = %s", stockId);
+                ResultSet rs = st.executeQuery(query);
+                if (rs.next()) {
+                    return true;
+                }
+                else return false;
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    public void orderMatching(int stock_id, int price, String type, int buyAccountID, int volume, int buyId) throws SQLException, ClassNotFoundException {
+        Connection conn = MySQLConnection.getMySQLConnection();
+        try {
+            if(type.equals("buy")) {
+                Statement st = conn.createStatement();
+                String query = "";
+                query = String.format("select * from exchange where stock_id = %s and type = 'sell' and price = %s and status = 'pending' order by create_on asc", stock_id, price);
+                ResultSet rsa = st.executeQuery(query);
+                while (rsa.next()) {
+                    System.out.println("f");
+                    int canBuy = rsa.getInt("trading_volumn");
+                    int sellId = rsa.getInt("id");
+                    System.out.println("e");
+                    if(canBuy >= volume) {
+                        if (!isHasStock(stock_id)) {
+                            System.out.println("chua");
+                            System.out.println(st.executeUpdate(String.format("insert stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
+                                    String.valueOf(buyAccountID), String.valueOf(stock_id), volume, volume * price)) + " Row inserted");
+                        } else {
+                            System.out.println("co");
+                            System.out.println(st.executeUpdate(String.format("update stock_bag set amount = amount+ %s, value = value + %s where stock_id = %s and account_id = %s", volume, volume * price, stock_id, buyAccountID)) + " Row updated");
+                        }
+                        System.out.println(st.executeUpdate(String.format("update account set account_balance = account_balance - %s where id = %s", volume * price, buyAccountID)) + "account balance");
 
+                        st.executeUpdate(String.format("update exchange set trading_volumn = trading_volumn-%s where id = %s",volume, sellId));
+                        st.executeUpdate(String.format("update exchange set status = 'success' where id = %s", buyId));
+                        if(canBuy == volume){
+                            st.executeUpdate(String.format("update exchange set status = 'success' where id = %s", sellId));
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Xxxxx");
+                        volume = volume - canBuy;
+                        if (!isHasStock(stock_id)) {
+                            System.out.println("chua");
+                            System.out.println(st.executeUpdate(String.format("insert stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
+                                    String.valueOf(buyAccountID), String.valueOf(stock_id), canBuy, canBuy * price)) + " Row inserted");
+                        } else {
+                            System.out.println("co");
+                            System.out.println(st.executeUpdate(String.format("update stock_bag set amount = amount+ %s, value = value + %s where stock_id = %s and account_id = %s", canBuy, canBuy * price, stock_id, buyAccountID)) + " Row updated");
+                        }
+                        System.out.println(st.executeUpdate(String.format("update account set account_balance = account_balance - %s where id = %s", canBuy * price, buyAccountID)) + "account balance");
+
+                        st.executeUpdate(String.format("update exchange set trading_volumn = trading_volumn-%s where id = %s",canBuy, buyId));
+                        st.executeUpdate(String.format("update exchange set status = 'success' where id = %s", sellId));
+                        System.out.println("Xxxxxd");
+                    }
+
+                }
+            }
+            else {
+                //query = String.format("select * from exchange where stock_id = %s and type = 'buy' and price = %s order by create_on asc", stock_id, price);
+            }
+        }
+        catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
     private void button3MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
         Connection conn = MySQLConnection.getMySQLConnection();
         try {
@@ -98,14 +175,17 @@ public class buyStock extends JFrame {
                 if(account_balance >= Integer.valueOf(textField3.getText()) * Integer.valueOf(textField4.getText())) {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = formatter.format(new Date());
-                    String query = String.format("insert into exchange(stock_id,user_id,status trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
+                    String query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
                             String.valueOf(stock_id), String.valueOf(userId),"pending", textField4.getText(), textField3.getText(), "buy", date);
                     JOptionPane.showMessageDialog(this, "Order to buy successfully");
                     System.out.println(st.executeUpdate(query) + " Row inserted");
 
-////                System.out.println(st.executeUpdate(String.format("insert stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
-////                        String.valueOf(account_id), String.valueOf(stock_id), textField4.getText(), textField3.getText())) + " Row inserted");
-////                st.executeUpdate(String.format("update account set account_balance = %s where id = %s", account_balance - Integer.valueOf(textField3.getText()) * Integer.valueOf(textField4.getText()), account_id));
+                    Statement st4 = conn.createStatement();
+                    ResultSet rs4 = st.executeQuery(String.format("select * from exchange where create_on ='%s' and user_id = %s", date, userId));
+                    rs4.next();
+                    int buyExId = rs4.getInt("id");
+                    rs4.close();
+                    orderMatching(stock_id, Integer.valueOf(textField3.getText()), "buy", account_id, Integer.valueOf(textField4.getText()), buyExId);
                 }
                 else {
                     JOptionPane.showMessageDialog(this, "Don't enough money to buy", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -136,6 +216,7 @@ public class buyStock extends JFrame {
                         System.out.println(query);
                         System.out.println(st.executeUpdate(query) + " Row inserted");
                         JOptionPane.showMessageDialog(this, "Order to sell successfully");
+
                     }
                     else JOptionPane.showMessageDialog(this, "Not enough stock volume", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }

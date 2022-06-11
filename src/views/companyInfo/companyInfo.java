@@ -53,6 +53,7 @@ public class companyInfo extends JFrame {
             label18.setText(String.valueOf(rs.getInt("high_price")));
             label19.setText(String.valueOf(rs.getInt("low_price")));
             label7.setText(rs.getString("date"));
+            label4.setText(String.valueOf((rs.getInt("high_price")+rs.getInt("high_price"))/2));
             rs.close();
             query = "select count(*) from exchange where stock_id ="+stockId;
             ResultSet rs2 = st.executeQuery(query);

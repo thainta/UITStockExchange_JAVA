@@ -18,7 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
-
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.chart.date.MonthConstants;
 
 /**
  * @author Le Duy Hoang
@@ -39,7 +40,6 @@ public class signIn extends JFrame {
     }
 
     public signIn() {
-        System.out.println();
         initComponents();
     }
 

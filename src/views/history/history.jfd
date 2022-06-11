@@ -8,6 +8,7 @@ new FormModel {
 			"$verticalGroup": "par l {comp scrollPane1::l::338:x}"
 		} ) {
 			name: "this"
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosed", "thisWindowClosed", true ) )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
