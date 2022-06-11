@@ -105,6 +105,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
 				"text": "Login"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button2MouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JRadioButton" ) {
 				name: "maleInput"
@@ -125,4 +126,3 @@ new FormModel {
 		} )
 	}
 }
-

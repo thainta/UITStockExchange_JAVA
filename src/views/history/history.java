@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import utils.*;
+import views.userInfo.userInfo;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,13 +23,12 @@ import java.sql.Statement;
  * @author Thái Nguyễn Thừa An
  */
 public class history extends JFrame {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        new history(new currentUser(2, null, 123)).setVisible(true);
-    }
     currentUser currentUser;
+    JFrame parentFrame;
     String col[] = {"id", "Symbol", "Volume", "Price", "Type", "Status", "Action"};
-    public history(currentUser currentUser) throws SQLException, ClassNotFoundException {
+    public history(currentUser currentUser, JFrame parentFrame) throws SQLException, ClassNotFoundException {
         this.currentUser = currentUser;
+        this.parentFrame = parentFrame;
         initComponents();
         DefaultTableModel model = new DefaultTableModel(col, 0){
 
@@ -70,6 +70,10 @@ public class history extends JFrame {
         }
     }
 
+    private void thisWindowClosed(WindowEvent e) {
+        parentFrame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
@@ -77,6 +81,12 @@ public class history extends JFrame {
         table1 = new JTable();
 
         //======== this ========
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                thisWindowClosed(e);
+            }
+        });
         var contentPane = getContentPane();
 
         //======== scrollPane1 ========

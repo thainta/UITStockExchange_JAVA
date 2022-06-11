@@ -86,6 +86,7 @@ public class InfoBoard extends JFrame {
 
         //-----------------------------JPanel----------------------------------------------------
         panel5.setBackground(new Color(41, 55, 66));
+
         Jpanell k = new Jpanell();
         k.setBackground(Color.red);
         Jpanell t = new Jpanell();
@@ -151,6 +152,7 @@ public class InfoBoard extends JFrame {
         this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
 
         ///////////////////////////////-------------------------------///////////////////////////////////
+        setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
 
@@ -248,9 +250,10 @@ public class InfoBoard extends JFrame {
     }
 
     private void myProfileBtnMouseClicked(MouseEvent e) {
-        userInfo userInfoForm = new userInfo(this.currentUser);
-        this.setVisible(false);
+        userInfo userInfoForm = new userInfo(this.currentUser, this);
+//        this.setVisible(false);
         userInfoForm.setVisible(true);
+        this.setEnabled(false);
     }
 
     private void table2MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
