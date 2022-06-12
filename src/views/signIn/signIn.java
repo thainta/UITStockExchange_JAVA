@@ -4,22 +4,20 @@
 
 package views.signIn;
 
-import java.awt.event.*;
+import org.mindrot.jbcrypt.BCrypt;
 import utils.MySQLConnection;
 import utils.currentUser;
-import views.InfoBoard.*;
-import org.mindrot.jbcrypt.BCrypt;
+import views.InfoBoard.InfoBoard;
 import views.signUp.signUp;
-
+import views.admin.system.system;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.chart.date.MonthConstants;
 
 /**
  * @author Le Duy Hoang
@@ -51,18 +49,26 @@ public class signIn extends JFrame {
                 ResultSet rs = st.executeQuery("select * from user where email='"+ emailnput.getText()+"'" );
 
                 while(rs.next())
-                    if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("PASSWORD")) == true) {
-                        JOptionPane.showMessageDialog(this, "Login success");
-                        this.dispose();
+                    if (rs.getInt("isArchived") == 0) {
+                        if (BCrypt.checkpw(String.valueOf(passwordInput.getPassword()), rs.getString("PASSWORD")) == true) {
+                            JOptionPane.showMessageDialog(this, "Login success");
+                            this.dispose();
 
-                        currentUser = new currentUser(rs.getInt("id"), "", rs.getInt("type_id"));
-                        if (currentUser.getRoleId() == 1) {
-                            InfoBoard infoBoardForm = new InfoBoard(currentUser);
-                            infoBoardForm.setVisible(true);
+                            currentUser = new currentUser(rs.getInt("id"), "", rs.getInt("type_id"));
+                            if (currentUser.getRoleId() == 1) {
+                                InfoBoard infoBoardForm = new InfoBoard(currentUser);
+                                infoBoardForm.setVisible(true);
+                            } else {
+                                system systemForm = new system();
+                                systemForm.setVisible(true);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Wrong password");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(this, "Wrong password");
+                        JOptionPane.showMessageDialog(this, "Your account is banned from sever.");
                     }
+
                 }
 
              catch (SQLException ex) {

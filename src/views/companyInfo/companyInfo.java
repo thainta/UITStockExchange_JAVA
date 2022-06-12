@@ -4,17 +4,17 @@
 
 package views.companyInfo;
 
+import utils.MySQLConnection;
+import views.buyStock.buyStock;
+
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.plaf.*;
-import utils.*;
-import views.buyStock.buyStock;
 
 /**
  * @author Le Duy Hoang
@@ -23,7 +23,7 @@ public class companyInfo extends JFrame {
     private int stockId;
     String companyName;
     String CompanyShortName;
-    public companyInfo(int stockId, String CompanyName, String CompanyShortName) throws SQLException, ClassNotFoundException {
+        public companyInfo(int stockId, String CompanyName, String CompanyShortName) throws SQLException, ClassNotFoundException {
         this.stockId = stockId;
         this.companyName = CompanyName;
         this.CompanyShortName = CompanyShortName;

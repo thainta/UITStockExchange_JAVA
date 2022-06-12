@@ -4,16 +4,17 @@
 
 package views.history;
 
-import java.awt.*;
-import java.awt.event.*;
+import utils.MySQLConnection;
+import utils.currentUser;
+
 import javax.swing.*;
-import javax.swing.GroupLayout;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import utils.*;
-import views.userInfo.userInfo;
-
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,7 +77,7 @@ public class history extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
 
@@ -152,7 +153,7 @@ public class history extends JFrame {
         }
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
+    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
     private JScrollPane scrollPane1;
     private JTable table1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
