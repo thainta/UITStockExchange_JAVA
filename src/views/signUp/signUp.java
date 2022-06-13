@@ -160,6 +160,12 @@ public class signUp extends JFrame {
 
         //---- button2 ----
         button2.setText("Login");
+        button2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                button2MouseClicked(e);
+            }
+        });
 
         //---- maleInput ----
         maleInput.setText("Male");
