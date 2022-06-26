@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="stimulsoft-reports-viewer-2022.3.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-viewer-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-web-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-samples-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-webdesigner-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-swt-2019.2.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-libs-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-webviewer-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-lib-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-flex-2020.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-demo-2022.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/stimulsoft-reports-base-2022.3.1.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>

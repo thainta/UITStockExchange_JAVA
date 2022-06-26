@@ -4,6 +4,17 @@
 
 package views.userInfo;
 
+import java.awt.event.*;
+import utils.currentUser;
+
+import java.awt.*;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+
+import views.history.history;
+import views.signIn.*;
+import views.stockBag.*;
 import utils.MySQLConnection;
 import utils.currentUser;
 import views.history.history;
@@ -180,13 +191,15 @@ public class userInfo extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+        // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
         roleLabel = new JLabel();
+
         label7 = new JLabel();
         createdOnLabel = new JLabel();
+
         label9 = new JLabel();
         balanceLabel = new JLabel();
         visibleBtn = new JButton();
@@ -294,12 +307,14 @@ public class userInfo extends JFrame {
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.hoverSeparatorColor"));
+
             panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
             ( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
             . TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
             . Color. red) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
             propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
             ; }} );
+
 
             //---- label12 ----
             label12.setText("Last Name:");
@@ -367,10 +382,10 @@ public class userInfo extends JFrame {
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addComponent(label13)
                                     .addComponent(label12))
-                                .addGap(24, 24, 24)
+                                .addGap(17, 17, 17)
                                 .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(lnInput, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                                    .addComponent(fnInput, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)))
+                                    .addComponent(lnInput, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                                    .addComponent(fnInput, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)))
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addComponent(label14)
@@ -389,12 +404,12 @@ public class userInfo extends JFrame {
                                         .addComponent(maleInput)
                                         .addGap(40, 40, 40)
                                         .addComponent(femaleInput)
-                                        .addGap(0, 241, Short.MAX_VALUE)))))
+                                        .addGap(0, 171, Short.MAX_VALUE)))))
                         .addGap(78, 78, 78))
                     .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(button1, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(updateBtn, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
                         .addGap(248, 248, 248))
             );
@@ -469,13 +484,9 @@ public class userInfo extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap())
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
+
                             .addGap(94, 94, 94)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addComponent(label2)
@@ -491,16 +502,34 @@ public class userInfo extends JFrame {
                             .addComponent(createdOnLabel))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addComponent(label9, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(balanceLabel)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(visibleBtn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                            .addGap(126, 126, 126)
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(button2, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                                .addComponent(viewStockBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(96, 96, 96)
-                            .addComponent(textPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(94, 94, 94)
+                                    .addComponent(label2)
+                                    .addGap(46, 46, 46)
+                                    .addComponent(logoutBtn))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(12, 12, 12)
+                                    .addComponent(label3)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(roleLabel))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                            .addComponent(label9, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(balanceLabel)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(visibleBtn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(viewStockBtn, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(button2, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+                                    .addGap(142, 142, 142)
+                                    .addComponent(textPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -515,8 +544,10 @@ public class userInfo extends JFrame {
                                         .addComponent(logoutBtn))
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(roleLabel)
+
                                         .addComponent(label7)
                                         .addComponent(createdOnLabel)
+
                                         .addComponent(label3))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
@@ -524,8 +555,9 @@ public class userInfo extends JFrame {
                                             .addComponent(visibleBtn)
                                             .addComponent(viewStockBtn))
                                         .addComponent(label9, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(button2))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(button2)
+                            .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(contentPaneLayout.createParallelGroup()
@@ -545,13 +577,14 @@ public class userInfo extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Le Duy Hoang
+    // Generated using JFormDesigner Evaluation license - Thái Nguyễn Thừa An
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
     private JLabel roleLabel;
     private JLabel label7;
     private JLabel createdOnLabel;
+
     private JLabel label9;
     private JLabel balanceLabel;
     private JButton visibleBtn;
