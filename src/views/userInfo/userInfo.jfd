@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {comp panel1:::::x, space :::p}, seq {comp label1:::p:142:p, space :::p, par l {seq l {space :p:94:p, par t {comp label2:::p::p, comp label7::t:p::p}, space :p:46:p, comp logoutBtn:::p::p}, seq l {space :p:12:p, comp label3:::p::p, space :::p, comp roleLabel:::p::p, space :p:34:p, comp label5:::p::p, space :::p, comp statusLabel:::p::p, space :p:129:p, comp createdOnLabel:::p::p}, seq l {comp label9:::p:71:p, space :::p, comp balanceLabel:::p::p, space :::p, comp visibleBtn:::p:65:p, space :p:126:p, par l:::p {comp button2::::113:x, comp viewStockBtn:::::x}, space :p:96:p, comp textPane1:::p::p}}}}"
-			"$verticalGroup": "par l {seq {par l {seq {par t {comp balanceLabel:::p::p, seq t {par l {comp label2:::p::p, comp logoutBtn:::p::p}, par b {comp roleLabel::b:p::p, comp label5::b:p::p, comp statusLabel::b:p::p, comp label7::b:p::p, comp createdOnLabel::b:p::p, comp label3::b:p::p}, space :::p, par l:::p {par b {comp visibleBtn::b:p::p, comp viewStockBtn::b:p::p}, comp label9::l:p:32:p}}}, space :::x, comp button2:::p::p}, seq {space :::p, par l {seq {space :0:0:x, comp textPane1:::p::p}, seq {comp label1:::p:136:p, space :0:0:x}}}}, space :::p, comp panel1:::p::p, space :::p}}"
+			"$horizontalGroup": "par l {seq {par l {seq {comp label1:::p:142:p, space :::p, par l {seq l {space :p:94:p, comp label2:::p::p, space :p:46:p, comp logoutBtn:::p::p}, seq l {space :p:12:p, comp label3:::p::p, space :::p, comp roleLabel:::p::p}, seq l {par t {seq {comp label9:::p:71:p, space :::p, comp balanceLabel:::p::p, space :::p, comp visibleBtn:::p:65:p, space :::x, comp viewStockBtn:::p:113:p}, comp button2:::p:113:p}, space :p:142:p, comp textPane1:::p::p}}}, comp panel1::l:p::p}, space :::x}}"
+			"$verticalGroup": "par l {seq {par l {seq {par t {comp balanceLabel:::p::p, seq t {par l {comp label2:::p::p, comp logoutBtn:::p::p}, par b {comp roleLabel::b:p::p, comp label3::b:p::p}, space :::p, par l:::p {par b {comp visibleBtn::b:p::p, comp viewStockBtn::b:p::p}, comp label9::l:p:32:p}}}, space u:::p, comp button2:::p::p, space :0:0:x}, seq {space :::p, par l {seq {space :0:0:x, comp textPane1:::p::p}, seq {comp label1:::p:136:p, space :0:0:x}}}}, space :::p, comp panel1:::p::p, space :::p}}"
 		} ) {
 			name: "this"
 			"$sizePolicy": 1
@@ -30,28 +30,6 @@ new FormModel {
 				"text": "User"
 				"font": #Font0
 				"foreground": sfield java.awt.Color red
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label5"
-				"text": "Status:"
-				"font": #Font0
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "statusLabel"
-				"text": "Online"
-				"font": #Font0
-				"foreground": sfield java.awt.Color green
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label7"
-				"text": "CreatedOn:"
-				"font": #Font0
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "createdOnLabel"
-				"text": "22/3/2022"
-				"font": #Font0
-				"foreground": sfield java.awt.Color blue
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label9"
@@ -81,7 +59,7 @@ new FormModel {
 				name: "textPane1"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {space :p:35:p, par l {seq l {par l {comp label13:::p::p, comp label12:::p::p}, space :p:24:p, par l {comp lnInput::::469:x, comp fnInput::::469:x}}, seq l {par l {comp label14:::p::p, comp label15:::p::p, comp label16::l:p::p, comp label17::l:p::p, comp label18::l:p::p}, space :p:47:p, par l {comp dobInput:::::x, comp addrInput:::::x, comp idInput::t:::x, comp phoneInput:::::x, seq {space :p:66:p, comp maleInput:::p::p, space :p:40:p, comp femaleInput:::p::p, space :0:241:x}}}}, space :p:78:p}, seq t {space :::p, comp button1:::p:89:p, space ::247:x, comp updateBtn:::p:122:p, space :p:248:p}}"
+				"$horizontalGroup": "par l {seq l {space :p:35:p, par l {seq l {par l {comp label13:::p::p, comp label12:::p::p}, space :p:17:p, par l {comp lnInput::::407:x, comp fnInput::::407:x}}, seq l {par l {comp label14:::p::p, comp label15:::p::p, comp label16::l:p::p, comp label17::l:p::p, comp label18::l:p::p}, space :p:47:p, par l {comp dobInput:::::x, comp addrInput:::::x, comp idInput::t:::x, comp phoneInput:::::x, seq {space :p:66:p, comp maleInput:::p::p, space :p:40:p, comp femaleInput:::p::p, space :0:171:x}}}}, space :p:78:p}, seq t {space :::p, comp button1:::p:89:p, space :::x, comp updateBtn:::p:122:p, space :p:248:p}}"
 				"$verticalGroup": "par l {seq l {space u:::p, par b {comp label13::b:p::p, comp fnInput::b:p::p}, space :::p, par b {comp label12::b:p::p, comp lnInput::b:p::p}, space :::p, par b {comp label14::b:p::p, comp dobInput::b:p::p}, space :::p, par l {comp label15:::p::p, comp addrInput:::p::p}, space :::p, par l {comp label16:::p::p, comp idInput::l:p::p}, space u:::p, par l {par b {comp label17::b:p::p, comp maleInput::b:p::p}, comp femaleInput::l:p::p}, space :p:18:p, par b {comp label18::b:p::p, comp phoneInput::b:p::p}, space :p:48:p, par l:::p {comp updateBtn::::39:x, comp button1::::39:x}, space ::13:x}}"
 			} ) {
 				name: "panel1"

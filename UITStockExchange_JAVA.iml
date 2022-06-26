@@ -13,5 +13,8 @@
     <orderEntry type="library" name="mysql-connector-java-8.0.291" level="project" />
     <orderEntry type="library" name="de.svenkubiak.jBCrypt" level="project" />
     <orderEntry type="library" name="jcommon-1.0.23" level="project" />
+    <orderEntry type="library" name="stimulsoft-reports-report-2022.3.1" level="project" />
+    <orderEntry type="library" name="stimulsoft-reports-viewer-2022.3.1" level="project" />
+    <orderEntry type="library" name="xmlbeans-5.0.3" level="project" />
   </component>
 </module>
