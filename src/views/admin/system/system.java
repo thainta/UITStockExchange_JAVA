@@ -5,6 +5,7 @@
 package views.admin.system;
 
 import utils.MySQLConnection;
+import utils.currentUser;
 import views.signIn.signIn;
 import views.companyInfo.companyInfo;
 
@@ -23,13 +24,10 @@ import java.sql.Statement;
  * @author Le Duy Hoang
  */
 public class system extends JFrame {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        system form = new system();
-        form.setVisible(true);
-    }
-    public system() throws SQLException, ClassNotFoundException {
+    public currentUser currentUser;
+    public system(currentUser cUser) throws SQLException, ClassNotFoundException {
         initComponents();
-
+        currentUser = cUser;
         // User table
         String col1[] = {"User Id", "First Name", "Last Name", "Id Card", "Sex", "Email", "Type Id", "Status", "Action"};
         DefaultTableModel model = new DefaultTableModel(col1, 0) {
@@ -108,7 +106,8 @@ public class system extends JFrame {
                 ResultSet rs = st.executeQuery(query);
 
                 rs.next();
-                companyInfo comInfoForm = new companyInfo(Integer.valueOf(id), comTable.getValueAt(row, 1).toString(), rs.getString("stock_name"));
+                companyInfo comInfoForm = new companyInfo(rs.getInt("id"), rs.getString("company_name"), rs.getString("company_short_name"), currentUser);
+
                 comInfoForm.setVisible(true);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

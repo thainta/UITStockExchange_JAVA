@@ -196,6 +196,10 @@ public class userInfo extends JFrame {
         label2 = new JLabel();
         label3 = new JLabel();
         roleLabel = new JLabel();
+
+        label7 = new JLabel();
+        createdOnLabel = new JLabel();
+
         label9 = new JLabel();
         balanceLabel = new JLabel();
         visibleBtn = new JButton();
@@ -252,6 +256,15 @@ public class userInfo extends JFrame {
         roleLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
         roleLabel.setForeground(Color.red);
 
+        //---- label7 ----
+        label7.setText("CreatedOn:");
+        label7.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+
+        //---- createdOnLabel ----
+        createdOnLabel.setText("22/3/2022");
+        createdOnLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+        createdOnLabel.setForeground(Color.blue);
+
         //---- label9 ----
         label9.setText("Balance:");
         label9.setFont(new Font("JetBrains Mono Medium", Font.PLAIN, 15));
@@ -294,12 +307,14 @@ public class userInfo extends JFrame {
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.hoverSeparatorColor"));
-            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-            EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
-            . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
-            java. awt. Color. red) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
-            throw new RuntimeException( ); }} );
+
+            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
+            ( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
+            . TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
+            . Color. red) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
+            propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
+            ; }} );
+
 
             //---- label12 ----
             label12.setText("Last Name:");
@@ -471,7 +486,23 @@ public class userInfo extends JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+
+                            .addGap(94, 94, 94)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(label2)
+                                .addComponent(label7))
+                            .addGap(46, 46, 46)
+                            .addComponent(logoutBtn))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(label3)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(roleLabel)
+                            .addGap(276, 276, 276)
+                            .addComponent(createdOnLabel))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label9, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(contentPaneLayout.createParallelGroup()
                                 .addGroup(contentPaneLayout.createSequentialGroup()
@@ -513,6 +544,10 @@ public class userInfo extends JFrame {
                                         .addComponent(logoutBtn))
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(roleLabel)
+
+                                        .addComponent(label7)
+                                        .addComponent(createdOnLabel)
+
                                         .addComponent(label3))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
@@ -547,6 +582,9 @@ public class userInfo extends JFrame {
     private JLabel label2;
     private JLabel label3;
     private JLabel roleLabel;
+    private JLabel label7;
+    private JLabel createdOnLabel;
+
     private JLabel label9;
     private JLabel balanceLabel;
     private JButton visibleBtn;

@@ -5,6 +5,7 @@
 package views.companyInfo;
 
 import utils.MySQLConnection;
+import utils.currentUser;
 import views.buyStock.buyStock;
 
 import javax.swing.*;
@@ -21,10 +22,12 @@ import java.sql.Statement;
  */
 public class companyInfo extends JFrame {
     private int stockId;
+    public currentUser currentUser;
     String companyName;
     String CompanyShortName;
-        public companyInfo(int stockId, String CompanyName, String CompanyShortName) throws SQLException, ClassNotFoundException {
+        public companyInfo(int stockId, String CompanyName, String CompanyShortName, currentUser cUser) throws SQLException, ClassNotFoundException {
         this.stockId = stockId;
+        currentUser = cUser;
         this.companyName = CompanyName;
         this.CompanyShortName = CompanyShortName;
         initComponents();
@@ -70,7 +73,7 @@ public class companyInfo extends JFrame {
 
     private void button2MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
         this.setVisible(false);
-        new buyStock(CompanyShortName, new utils.currentUser(2, null, 123)).setVisible(true);
+        new buyStock(CompanyShortName, currentUser).setVisible(true);
         this.dispose();
     }
 
