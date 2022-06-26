@@ -100,15 +100,15 @@ public class system extends JFrame {
         int row = comTable.getSelectedRow();
         int col = comTable.getSelectedColumn();
         if (comTable.getValueAt(row,col).toString().equals("show")) {
-            String id = userTable.getValueAt(row, 0).toString();
+            String id = comTable.getValueAt(row, 0).toString();
             Connection conn = MySQLConnection.getMySQLConnection();
             try {
                 Statement st = conn.createStatement();
-                String query = String.format("SELECT * FROM COMPANY WHERE ID =" + id);
+                String query = "SELECT * FROM STOCK WHERE company_id = " + id;
                 ResultSet rs = st.executeQuery(query);
 
                 rs.next();
-                companyInfo comInfoForm = new companyInfo(rs.getInt("id"), rs.getString("company_name"), rs.getString("company_short_name"));
+                companyInfo comInfoForm = new companyInfo(Integer.valueOf(id), comTable.getValueAt(row, 1).toString(), rs.getString("stock_name"));
                 comInfoForm.setVisible(true);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -219,14 +219,14 @@ public class system extends JFrame {
         Connection conn = MySQLConnection.getMySQLConnection();
         try{
             Statement st = conn.createStatement();
-            String query = "select * from user";
+            String query = "select * from user where type_id = 1";
             ResultSet rs = st.executeQuery(query);
             System.out.println(rs.getRow());
             while (rs.next()) {
                 int userId= rs.getInt("id");
                 String fName = rs.getString("first_name");
                 String lName = rs.getString("last_name");
-                String id = rs.getString("identity_card");
+                String id = rs.getString("indentity_card");
                 String sex = rs.getString("sex");
                 String email = rs.getString("email");
                 int type = rs.getInt("type_id");
