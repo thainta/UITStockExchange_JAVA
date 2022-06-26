@@ -59,7 +59,7 @@ public class signIn extends JFrame {
                                 InfoBoard infoBoardForm = new InfoBoard(currentUser);
                                 infoBoardForm.setVisible(true);
                             } else {
-                                system systemForm = new system();
+                                system systemForm = new system(currentUser);
                                 systemForm.setVisible(true);
                             }
                         } else {

@@ -94,7 +94,7 @@ public class userInfo extends JFrame {
 
     public void updateInfo() {
         String query =
-                "UPDATE USER SET first_name=?, last_name=?, date_of_birth=?, address=?, identity_card=?, sex=?, phone=? WHERE id=?";
+                "UPDATE USER SET first_name=?, last_name=?, date_of_birth=?, address=?, indentity_card=?, sex=?, phone=? WHERE id=?";
         try {
             Connection conn = getMyConnection();
             PreparedStatement ps = conn.prepareStatement(query);
@@ -185,8 +185,6 @@ public class userInfo extends JFrame {
         label2 = new JLabel();
         label3 = new JLabel();
         roleLabel = new JLabel();
-        label5 = new JLabel();
-        statusLabel = new JLabel();
         label7 = new JLabel();
         createdOnLabel = new JLabel();
         label9 = new JLabel();
@@ -245,15 +243,6 @@ public class userInfo extends JFrame {
         roleLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
         roleLabel.setForeground(Color.red);
 
-        //---- label5 ----
-        label5.setText("Status:");
-        label5.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
-
-        //---- statusLabel ----
-        statusLabel.setText("Online");
-        statusLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
-        statusLabel.setForeground(Color.green);
-
         //---- label7 ----
         label7.setText("CreatedOn:");
         label7.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
@@ -305,12 +294,12 @@ public class userInfo extends JFrame {
         //======== panel1 ========
         {
             panel1.setBackground(UIManager.getColor("ActionButton.hoverSeparatorColor"));
-            panel1.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing.
-            border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER
-            ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font
-            . BOLD ,12 ) ,java . awt. Color .red ) ,panel1. getBorder () ) ); panel1. addPropertyChangeListener(
-            new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r"
-            .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+            panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
+            ( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
+            . TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
+            . Color. red) ,panel1. getBorder( )) ); panel1. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
+            propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
+            ; }} );
 
             //---- label12 ----
             label12.setText("Last Name:");
@@ -498,11 +487,7 @@ public class userInfo extends JFrame {
                             .addComponent(label3)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(roleLabel)
-                            .addGap(34, 34, 34)
-                            .addComponent(label5)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(statusLabel)
-                            .addGap(129, 129, 129)
+                            .addGap(276, 276, 276)
                             .addComponent(createdOnLabel))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addComponent(label9, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
@@ -530,8 +515,6 @@ public class userInfo extends JFrame {
                                         .addComponent(logoutBtn))
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(roleLabel)
-                                        .addComponent(label5)
-                                        .addComponent(statusLabel)
                                         .addComponent(label7)
                                         .addComponent(createdOnLabel)
                                         .addComponent(label3))
@@ -567,8 +550,6 @@ public class userInfo extends JFrame {
     private JLabel label2;
     private JLabel label3;
     private JLabel roleLabel;
-    private JLabel label5;
-    private JLabel statusLabel;
     private JLabel label7;
     private JLabel createdOnLabel;
     private JLabel label9;

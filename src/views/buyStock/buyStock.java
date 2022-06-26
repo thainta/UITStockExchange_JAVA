@@ -4,15 +4,20 @@
 
 package views.buyStock;
 
+import utils.MySQLConnection;
+import utils.currentUser;
+
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.border.*;
-import utils.*;
 
 /**
  * @author Thái Nguyễn Thừa An
@@ -91,66 +96,206 @@ public class buyStock extends JFrame {
         }
         return false;
     }
-    public void orderMatching(int stock_id, int price, String type, int buyAccountID, int volume, int buyId) throws SQLException, ClassNotFoundException {
+
+    public void exchangeHash(int userId, String date, int stock_id, String price, String volumn, String preVolumn, int account_id, int account_balance) throws SQLException, ClassNotFoundException {
         Connection conn = MySQLConnection.getMySQLConnection();
         try {
-            if(type.equals("buy")) {
-                Statement st = conn.createStatement();
-                String query = "";
-                query = String.format("select * from exchange where stock_id = %s and type = 'sell' and price = %s and status = 'pending' order by create_on asc", stock_id, price);
-                ResultSet rsa = st.executeQuery(query);
-                while (rsa.next()) {
-                    System.out.println("f");
-                    int canBuy = rsa.getInt("trading_volumn");
-                    int sellId = rsa.getInt("id");
-                    System.out.println("e");
-                    if(canBuy >= volume) {
-                        if (!isHasStock(stock_id)) {
-                            System.out.println("chua");
-                            System.out.println(st.executeUpdate(String.format("insert stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
-                                    String.valueOf(buyAccountID), String.valueOf(stock_id), volume, volume * price)) + " Row inserted");
-                        } else {
-                            System.out.println("co");
-                            System.out.println(st.executeUpdate(String.format("update stock_bag set amount = amount+ %s, value = value + %s where stock_id = %s and account_id = %s", volume, volume * price, stock_id, buyAccountID)) + " Row updated");
-                        }
-                        System.out.println(st.executeUpdate(String.format("update account set account_balance = account_balance - %s where id = %s", volume * price, buyAccountID)) + "account balance");
+            ResultSet finnalRun;
+            Statement st = conn.createStatement();
+            ResultSet rsExchange = st.executeQuery("select * from exchange where status = 'pending' and  type = 'sell' and stock_id ='" + stock_id + "' and price = " + price + " order by id DESC limit 1");
 
-                        st.executeUpdate(String.format("update exchange set trading_volumn = trading_volumn-%s where id = %s",volume, sellId));
-                        st.executeUpdate(String.format("update exchange set status = 'success' where id = %s", buyId));
-                        if(canBuy == volume){
-                            st.executeUpdate(String.format("update exchange set status = 'success' where id = %s", sellId));
-                        }
-                        break;
+            int k = 0;
+            int exchange_id = 0;
+            String trading_volumn = "";
+            int sellUserId = 0;
+            int sellAccountId = 0;
+            while (rsExchange.next()) {
+                System.out.println(Integer.valueOf(volumn) == Integer.valueOf(rsExchange.getString("trading_volumn")));
+                if (Integer.valueOf(volumn) == Integer.valueOf(rsExchange.getString("trading_volumn"))) {
+                    System.out.println("running...");
+                    exchange_id = rsExchange.getInt("id");
+                    sellUserId = rsExchange.getInt("user_id");
+                    k = 1;
+                    System.out.println("hmmm!!!");
+                } else {
+                    if (Integer.valueOf(volumn) < Integer.valueOf(rsExchange.getString("trading_volumn"))) {
+                        exchange_id = rsExchange.getInt("id");
+                        trading_volumn = rsExchange.getString("trading_volumn");
+                        sellUserId = rsExchange.getInt("user_id");
+                        k = 2;
+                    } else {
+                        Statement stT = conn.createStatement();
+                        exchange_id = rsExchange.getInt("id");
+                        trading_volumn = rsExchange.getString("trading_volumn");
+                        k = 3;
                     }
-                    else{
-                        System.out.println("Xxxxx");
-                        volume = volume - canBuy;
-                        if (!isHasStock(stock_id)) {
-                            System.out.println("chua");
-                            System.out.println(st.executeUpdate(String.format("insert stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
-                                    String.valueOf(buyAccountID), String.valueOf(stock_id), canBuy, canBuy * price)) + " Row inserted");
-                        } else {
-                            System.out.println("co");
-                            System.out.println(st.executeUpdate(String.format("update stock_bag set amount = amount+ %s, value = value + %s where stock_id = %s and account_id = %s", canBuy, canBuy * price, stock_id, buyAccountID)) + " Row updated");
-                        }
-                        System.out.println(st.executeUpdate(String.format("update account set account_balance = account_balance - %s where id = %s", canBuy * price, buyAccountID)) + "account balance");
-
-                        st.executeUpdate(String.format("update exchange set trading_volumn = trading_volumn-%s where id = %s",canBuy, buyId));
-                        st.executeUpdate(String.format("update exchange set status = 'success' where id = %s", sellId));
-                        System.out.println("Xxxxxd");
-                    }
-
                 }
             }
-            else {
-                //query = String.format("select * from exchange where stock_id = %s and type = 'buy' and price = %s order by create_on asc", stock_id, price);
+            rsExchange.close();
+
+            if (k == 1) {
+                Statement newSt = conn.createStatement();
+                newSt.executeUpdate(String.format("update exchange set status = 'success' where id = " + exchange_id));
+                String query = String.format("insert into stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
+                        account_id, stock_id, Integer.valueOf(volumn) + Integer.valueOf(preVolumn), price);
+                Statement stFinal = conn.createStatement();
+                stFinal.executeUpdate(query);
+                query = String.format("select * from user where id = %s", sellUserId);
+                ResultSet kkk = stFinal.executeQuery(query);
+                kkk.next();
+                sellAccountId = kkk.getInt("account_id");
+                query = String.format("delete stock_bag where account_id = %s and stock_id = %s", sellAccountId, stock_id);
+                stFinal.executeUpdate(query);
+                query = String.format("update account set account_balance = %s where id = %s", String.valueOf(account_balance - (Integer.valueOf(price) * Integer.valueOf(volumn))), String.valueOf(account_id));
+                stFinal.executeUpdate(query);
+                JOptionPane.showMessageDialog(this, "Exchange success!");
+                ResultSet rsAccount = st.executeQuery("select account_balance from account where id =" + account_id);
+                rsAccount.next();
+                account_balance = rsAccount.getInt("account_balance");
+                label9.setText(account_balance + " VND");
             }
-        }
-        catch (SQLException ex) {
+            if (k == 2) {
+                String query = String.format("insert into stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
+                        account_id, stock_id, Integer.valueOf(volumn) + Integer.valueOf(preVolumn), price);
+                JOptionPane.showMessageDialog(this, "Exchange success!!");
+                Statement stFinal = conn.createStatement();
+                stFinal.executeUpdate(query);
+                query = String.format("select * from user where id = %s", sellUserId);
+                ResultSet kkk = stFinal.executeQuery(query);
+                kkk.next();
+                sellAccountId = kkk.getInt("account_id");
+                query = String.format("update stock_bag set amount = %s where account_id = %s", Integer.valueOf(trading_volumn) - Integer.valueOf(volumn), sellAccountId);
+                stFinal.executeUpdate(query);
+                query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
+                        stock_id, userId,"success", Integer.valueOf(volumn) + Integer.valueOf(preVolumn), price, "buy", date);
+                stFinal.executeUpdate(query);
+                query = String.format("update account set account_balance = %s where id = %s", account_balance - (Integer.valueOf(price) * Integer.valueOf(volumn)), account_id);
+                stFinal.executeUpdate(query);
+                query = String.format("update exchange set trading_volumn = %s where id = %s", String.format(String.valueOf(Integer.valueOf(trading_volumn) - Integer.valueOf(volumn))), String.format(String.valueOf(exchange_id)));
+                stFinal.executeUpdate(query);
+                ResultSet rsAccount = st.executeQuery("select account_balance from account where id =" + account_id);
+                rsAccount.next();
+                account_balance = rsAccount.getInt("account_balance");
+                label9.setText(account_balance + " VND");
+            }
+            if (k == 3) {
+                st.executeUpdate(String.format("update exchange set status = 'sucess' where id = %s", String.format(String.valueOf(exchange_id))));
+                int kk = Integer.valueOf(volumn) - Integer.valueOf(trading_volumn);
+                System.out.println(kk);
+                preVolumn = volumn;
+                volumn = String.format(String.valueOf(Integer.valueOf(volumn) - Integer.valueOf(trading_volumn)));
+                System.out.println(volumn);
+                exchangeHash(userId, date, stock_id, price, volumn, preVolumn, account_id, account_balance);
+            }
+            if (k == 0) {
+                String query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
+                        stock_id, userId,"pending", volumn, price, "buy", date);
+                JOptionPane.showMessageDialog(this, "Order to buy success!!");
+                System.out.println(st.executeUpdate(query) + " Row inserted");
+            }
+        } catch (SQLException ex) {
             throw new RuntimeException(ex);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
+
+    }
+    public void exchangeSellHash(int userId, String date, int stock_id, String price, String volumn, String preVolumn, int account_id, int account_balance) throws SQLException, ClassNotFoundException {
+        Connection conn = MySQLConnection.getMySQLConnection();
+        try {
+            ResultSet finnalRun;
+            Statement st = conn.createStatement();
+            ResultSet rsExchange = st.executeQuery("select * from exchange where status = 'pending' and  type = 'buy' and stock_id ='" + stock_id + "' and price = " + price + " order by id ASC limit 1");
+
+            int k = 0;
+            int exchange_id = 0;
+            String trading_volumn = "";
+            int sellUserId = 0;
+            int sellAccountId = 0;
+            while (rsExchange.next()) {
+                if (Integer.valueOf(volumn) == Integer.valueOf(rsExchange.getString("trading_volumn"))) {
+                    exchange_id = rsExchange.getInt("id");
+                    k = 1;
+                } else {
+                    if (Integer.valueOf(volumn) < Integer.valueOf(rsExchange.getString("trading_volumn"))) {
+                        exchange_id = rsExchange.getInt("id");
+                        trading_volumn = rsExchange.getString("trading_volumn");
+                        sellUserId = rsExchange.getInt("user_id");
+                        k = 2;
+                    } else {
+                        Statement stT = conn.createStatement();
+                        exchange_id = rsExchange.getInt("id");
+                        trading_volumn = rsExchange.getString("trading_volumn");
+                        k = 3;
+                    }
+                }
+            }
+            rsExchange.close();
+
+            if (k == 1) {
+                Statement newSt = conn.createStatement();
+                newSt.executeUpdate(String.format("update exchange set status = 'success' where id = " + exchange_id));
+
+                String query = String.format("select * from user where id = %s", sellUserId);
+                ResultSet kkk = newSt.executeQuery(query);
+                kkk.next();
+                sellAccountId = kkk.getInt("account_id");
+
+                query = String.format("insert into stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)",
+                        sellAccountId, stock_id, Integer.valueOf(volumn), price);
+                Statement stFinal = conn.createStatement();
+                stFinal.executeUpdate(query);
+                query = String.format("update account set account_balance = %s where id = %s", account_balance + (Integer.valueOf(price) * Integer.valueOf(volumn)), account_id);
+                stFinal.executeUpdate(query);
+                JOptionPane.showMessageDialog(this, "Exchange success!");
+                ResultSet rsAccount = st.executeQuery("select account_balance from account where id =" + account_id);
+                rsAccount.next();
+                account_balance = rsAccount.getInt("account_balance");
+                label9.setText(account_balance + " VND");
+            }
+            if (k == 2) {
+                Statement stFinal = conn.createStatement();
+                String query = String.format("select * from user where id = %s", sellUserId);
+                ResultSet kkk = stFinal.executeQuery(query);
+                kkk.next();
+                sellAccountId = kkk.getInt("account_id");
+
+                query = String.format("insert into stock_bag(account_id, stock_id, amount, value) values (%s, %s, %s, %s)", sellAccountId, stock_id, Integer.valueOf(volumn), price);
+                stFinal.executeUpdate(query);
+                query = String.format("delete from stock_bag where account_id = %s and stock_id = %s",
+                        account_id, stock_id);
+                stFinal.executeUpdate(query);
+
+                query = String.format("update exchange set trading_volumn = %s where id = %s", Integer.valueOf(trading_volumn) - Integer.valueOf(volumn), exchange_id);
+                stFinal.executeUpdate(query);
+                query = String.format("delete from stock_bag where account_id = %s and stock_id = %s", account_id, stock_id);
+                stFinal.executeUpdate(query);
+
+                JOptionPane.showMessageDialog(this, "Exchange success!!");
+
+                ResultSet rsAccount = st.executeQuery("select account_balance from account where id =" + account_id);
+                rsAccount.next();
+                account_balance = rsAccount.getInt("account_balance");
+                label9.setText(account_balance + " VND");
+            }
+            if (k == 3) {
+                st.executeUpdate(String.format("update exchange set status = 'sucess' where id = %s", String.format(String.valueOf(exchange_id))));
+                preVolumn = volumn;
+                volumn = String.format(String.valueOf(Integer.valueOf(volumn) - Integer.valueOf(trading_volumn)));
+                exchangeSellHash(userId, date, stock_id, price, volumn, preVolumn, account_id, account_balance);
+            }
+            if (k == 0) {
+                String query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
+                        stock_id, userId,"pending", volumn, price, "sell", date);
+                JOptionPane.showMessageDialog(this, "Order to sell success!!");
+                System.out.println(st.executeUpdate(query) + " Row inserted");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
     private void button3MouseClicked(MouseEvent e) throws SQLException, ClassNotFoundException {
         Connection conn = MySQLConnection.getMySQLConnection();
@@ -172,20 +317,11 @@ public class buyStock extends JFrame {
                 ResultSet rs1 = st.executeQuery("select id from stock where stock_name ='" + stockName + "'");
                 rs1.next();
                 stock_id = rs1.getInt("id");
+                ResultSet finnalRun;
                 if(account_balance >= Integer.valueOf(textField3.getText()) * Integer.valueOf(textField4.getText())) {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = formatter.format(new Date());
-                    String query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
-                            String.valueOf(stock_id), String.valueOf(userId),"pending", textField4.getText(), textField3.getText(), "buy", date);
-                    JOptionPane.showMessageDialog(this, "Order to buy successfully");
-                    System.out.println(st.executeUpdate(query) + " Row inserted");
-
-                    Statement st4 = conn.createStatement();
-                    ResultSet rs4 = st.executeQuery(String.format("select * from exchange where create_on ='%s' and user_id = %s", date, userId));
-                    rs4.next();
-                    int buyExId = rs4.getInt("id");
-                    rs4.close();
-                    orderMatching(stock_id, Integer.valueOf(textField3.getText()), "buy", account_id, Integer.valueOf(textField4.getText()), buyExId);
+                    exchangeHash(userId, date, stock_id, textField3.getText(), textField4.getText(), "0", account_id, account_balance);
                 }
                 else {
                     JOptionPane.showMessageDialog(this, "Don't enough money to buy", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -196,33 +332,33 @@ public class buyStock extends JFrame {
                 Statement st = conn.createStatement();
                 int account_id = 0;
                 int stock_id = 0;
+                int account_balance = 0;
                 ResultSet rs = st.executeQuery("select account_id from user where id =" + userId);
                 rs.next();
                 account_id = rs.getInt("account_id");
 
+                ResultSet rsAccount = st.executeQuery("select account_balance from account where id =" + account_id);
+                rsAccount.next();
+                account_balance = rsAccount.getInt("account_balance");
+
                 ResultSet rs1 = st.executeQuery("select id from stock where stock_name ='" + stockName + "'");
                 rs1.next();
                 stock_id = rs1.getInt("id");
-
-                String rs2query = "select * from stock_bag where stock_id =" + stock_id + " and account_id = " + account_id;
-                ResultSet rs2 = st.executeQuery(rs2query);
-                if(rs2.next()){
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String date = formatter.format(new Date());
-                    int availableVolum = rs2.getInt("amount");
-                    if(availableVolum > Integer.valueOf(textField4.getText())) {
-                        String query = String.format("insert into exchange(stock_id,user_id,status, trading_volumn, price,type, create_on) values (%s, %s,'%s', %s, %s, '%s', '%s')",
-                                String.valueOf(stock_id), String.valueOf(userId),"pending", textField4.getText(), textField3.getText(), "sell", date);
-                        System.out.println(query);
-                        System.out.println(st.executeUpdate(query) + " Row inserted");
-                        JOptionPane.showMessageDialog(this, "Order to sell successfully");
-
+                ResultSet finalRun = st.executeQuery(String.format("select * from stock_bag where account_id = %s", account_id));
+                int check = 0;
+                while(finalRun.next()) {
+                    if(finalRun.getInt("stock_id") == stock_id) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String date = formatter.format(new Date());
+                        exchangeSellHash(userId, date, stock_id, textField3.getText(), textField4.getText(), "0", account_id, account_balance);
+                        check = 1;
                     }
-                    else JOptionPane.showMessageDialog(this, "Not enough stock volume", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                else {
-                    JOptionPane.showMessageDialog(this, "Don't have this stock", "ERROR", JOptionPane.ERROR_MESSAGE);
+                if (check == 0) {
+                    JOptionPane.showMessageDialog(this, "You don't have that stock!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
+
+
             }
         }
         catch (Exception ex){

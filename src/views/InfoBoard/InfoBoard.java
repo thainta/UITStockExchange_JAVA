@@ -329,7 +329,7 @@ public class InfoBoard extends JFrame {
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery("select id from stock where stock_name ='"+ stockNme+"'");
                 rs.next();
-                new companyInfo( rs.getInt("id"), table2.getValueAt(table2.getSelectedRow(),1).toString(), stockNme).setVisible(true);
+                new companyInfo( rs.getInt("id"), table2.getValueAt(table2.getSelectedRow(),1).toString(), stockNme, currentUser).setVisible(true);
                 rs.close();
             }
             catch (SQLException ex) {
